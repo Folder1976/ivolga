@@ -1,0 +1,18 @@
+@font-face {
+	font-family: "RobotoRegular";
+	src: url("./fonts/RobotoRegular/RobotoRegular.eot");
+	src: url("./fonts/RobotoRegular/RobotoRegular.eot?#iefix") format("embedded-opentype"),
+			 url("./fonts/RobotoRegular/RobotoRegular.woff") format("woff"),
+			 url("./fonts/RobotoRegular/RobotoRegular.ttf") format("truetype");
+	font-style: normal;
+	font-weight: normal;
+}
+
+
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Material Icons'), local('MaterialIcons-Regular'), url(https://fonts.gstatic.com/s/materialicons/v21/2fcrYFNaTjcS6g4U3t-Y5UEw0lE80llgEseQY3FEmqw.woff2) format('woff2');
+}
+

@@ -1,0 +1,16 @@
+1499856717: /home2/ivolgaio/public_html/ssv3_payload_extractor-gfGujiJ4js.php startup
+[12-Jul-2017 12:42:43 UTC] PHP Parse error:  syntax error, unexpected ':', expecting elseif (T_ELSEIF) or else (T_ELSE) or endif (T_ENDIF) in /home2/ivolgaio/public_html/wp-content/themes/Hunting/page_reg.php on line 86
+[12-Jul-2017 12:42:52 UTC] PHP Parse error:  syntax error, unexpected ':', expecting elseif (T_ELSEIF) or else (T_ELSE) or endif (T_ENDIF) in /home2/ivolgaio/public_html/wp-content/themes/Hunting/page_reg.php on line 86
+[12-Jul-2017 13:30:07 UTC] PHP Parse error:  syntax error, unexpected ';', expecting ',' or ')' in /home2/ivolgaio/public_html/wp-content/themes/Hunting/home.php on line 27
+[12-Jul-2017 13:32:42 UTC] PHP Warning:  sprintf(): Too few arguments in /home2/ivolgaio/public_html/wp-content/themes/Hunting/home.php on line 22
+[12-Jul-2017 13:32:42 UTC] PHP Warning:  sprintf(): Too few arguments in /home2/ivolgaio/public_html/wp-content/themes/Hunting/home.php on line 22
+[12-Jul-2017 13:32:42 UTC] PHP Warning:  sprintf(): Too few arguments in /home2/ivolgaio/public_html/wp-content/themes/Hunting/home.php on line 22
+[12-Jul-2017 13:39:08 UTC] PHP Parse error:  syntax error, unexpected 'echo' (T_ECHO) in /home2/ivolgaio/public_html/wp-content/themes/Hunting/home.php on line 18
+[12-Jul-2017 13:39:27 UTC] PHP Parse error:  syntax error, unexpected 'echo' (T_ECHO) in /home2/ivolgaio/public_html/wp-content/themes/Hunting/home.php on line 18
+[13-Jul-2017 20:22:45 UTC] PHP Parse error:  syntax error, unexpected ';' in /home2/ivolgaio/public_html/wp-content/themes/Hunting/page_reg.php on line 58
+[13-Jul-2017 20:23:08 UTC] PHP Parse error:  syntax error, unexpected 'endif' (T_ENDIF), expecting end of file in /home2/ivolgaio/public_html/wp-content/themes/Hunting/page_reg.php on line 82
+[13-Jul-2017 21:14:15 UTC] PHP Parse error:  syntax error, unexpected 'price_razdel' (T_STRING), expecting ',' or ')' in /home2/ivolgaio/public_html/wp-content/themes/Hunting/single.php on line 172
+[13-Jul-2017 21:14:36 UTC] PHP Parse error:  syntax error, unexpected 'price_razdel' (T_STRING), expecting ',' or ')' in /home2/ivolgaio/public_html/wp-content/themes/Hunting/single.php on line 172
+[13-Jul-2017 21:15:55 UTC] PHP Parse error:  syntax error, unexpected 'start_date_tour' (T_STRING), expecting ',' or ')' in /home2/ivolgaio/public_html/wp-content/themes/Hunting/single.php on line 174
+[13-Jul-2017 21:16:02 UTC] PHP Parse error:  syntax error, unexpected 'start_date_tour' (T_STRING), expecting ',' or ')' in /home2/ivolgaio/public_html/wp-content/themes/Hunting/single.php on line 174
+[15-Jul-2017 11:11:10 UTC] PHP Parse error:  syntax error, unexpected end of file, expecting elseif (T_ELSEIF) or else (T_ELSE) or endif (T_ENDIF) in /home2/ivolgaio/public_html/wp-content/themes/Hunting/page_reg.php on line 174
