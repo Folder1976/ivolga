@@ -13,6 +13,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<link rel="stylesheet" type="text/css" href="<?php echo get_template_directory_uri();?>/style.css">
 	<title><?php typical_title(); // выводи тайтл, функция лежит в function.php ?></title>
+        <link href="/favicon.ico" rel="shortcut icon" />
+        <link href="/favicon.ico" rel="icon" type="image/x-icon" />
         <link rel="stylesheet" href="<?php echo get_template_directory_uri();?>/libs/owl/owl.carousel.css">
         <link rel="stylesheet" href="<?php echo get_template_directory_uri();?>/libs/fancy/jquery.fancybox.min.css">
         <link rel="stylesheet" href="<?php echo get_template_directory_uri();?>/bootstrap-grid.min.css">

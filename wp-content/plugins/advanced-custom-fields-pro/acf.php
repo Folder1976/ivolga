@@ -80,7 +80,7 @@ class acf {
 			'autoload'			=> false,
 			'l10n'				=> true,
 			'l10n_textdomain'	=> '',
-			'google_api_key'	=> '',
+			'google_api_key'	=> 'AIzaSyDgmGnnBxWg_ZyEoNQCbnKy30a6uAsp4xU',
 			'google_api_client'	=> '',
 			'enqueue_google_maps'	=> true,
 			'enqueue_select2'			=> true,

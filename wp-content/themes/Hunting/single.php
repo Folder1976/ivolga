@@ -170,7 +170,7 @@ $('.price_block, .price_block input, .price_block select, .ui-datepicker, a.fini
                                         </div>
                                         <div class="form_item">
                                             <label for="">Ваш email</label>
-										    <input type="text" oninvalid="this.setCustomValiПоказатьdity('Некорректный email')" name="email_form" placeholder="ruslan@sitename.ru"  required>
+										    <input type="text" oninvalid="this.setCustomValidity('Некорректный email')" name="email_form" placeholder="ruslan@sitename.ru"  required>
                                         </div>
                                         <div class="form_item">
                                             <label for="">Ваш телефон</label>
@@ -461,7 +461,7 @@ $('.price_block, .price_block input, .price_block select, .ui-datepicker, a.fini
 <?php endif; ?>  
 
                         </section>
-                        <a href="#" style="background-color: #FFE6CC;color: #C46800;" class="show_information">
+                        <a href="#" style="background-color: #FFE6CC;color: #C46800;" class="hide_information">
 							<span>Подробнее</span> <i class="material-icons">more_horiz</i></a>
 
 
@@ -530,13 +530,7 @@ $txt_reviews = get_sub_field('txt_reviews');
 </div>
 </section>    
 <?php endif; ?>
-<?php
 
-header("Content-Type: text/html; charset=UTF-8");
-echo '<pre>'; print_r(var_dump( get_field('tour_on_map')  ));
-die();
-
-?>
 <?php if( get_field('tour_on_map') ): ?>
                         <section class="margin_bottom map_tour">
                             <div class="row_title">Тур на карте 
@@ -547,7 +541,7 @@ die();
 
 <?php $location = get_field('tour_on_map'); if( ! empty($location) ): ?>
 <div id="map" style="width: 100%; height: 350px;"></div>
-<script src='http://maps.googleapis.com/maps/api/js?sensor=false' type='text/javascript'></script>
+<script src='https://maps.googleapis.com/maps/api/js?sensor=false&key=AIzaSyDgmGnnBxWg_ZyEoNQCbnKy30a6uAsp4xU' type='text/javascript'></script>
 
 <script type="text/javascript">
   //<![CDATA[
