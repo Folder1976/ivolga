@@ -28,7 +28,13 @@ Template Name: Спасибо
 
 <div class="container">
             <div class="thanks_page">
-                <div class="logotype"><a href="/"><span></span></a></div>
+                <div class="logotype">
+	        <a href="/">
+		<span>
+		    <img src="/wp-content/themes/Hunting/img/logo-grey-350.png" title="Logo Ivolga.io" alt="Logo Ivolga.io">
+		</span>
+	        </a>
+	    </div>
                 <div class="title">Спасибо за бронирование</div>
                 <div class="content">Вам на почту выслано письмо с контактами охотхозяйства и подробной информацией тура. <br>Удачной охоты!</div>
                 <div class="link"><a href="/">Вернуться на главную страницу</a> </div>

@@ -166,18 +166,20 @@ $('.price_block, .price_block input, .price_block select, .ui-datepicker, a.fini
                                         <div class="modal_title">Заполните ваши контактные данные</div>
                                         <div class="form_item">
                                             <label for="">Ваше имя</label>
-                                            <input type="text" name="name_form" placeholder="Руслан Русланов"  required>
+											<input type="text" oninvalid="this.setCustomValidity('Вы не представились')" name="name_form" placeholder="Руслан Русланов"  required>
                                         </div>
                                         <div class="form_item">
                                             <label for="">Ваш email</label>
-                                            <input type="text" name="email_form" placeholder="ruslan@sitename.ru"  required>
+										    <input type="text" oninvalid="this.setCustomValiПоказатьdity('Некорректный email')" name="email_form" placeholder="ruslan@sitename.ru"  required>
                                         </div>
                                         <div class="form_item">
                                             <label for="">Ваш телефон</label>
-                                            <input type="text" name="phone_form" placeholder="+7 (904) 444-22-11" required>
+										    <input type="text" oninvalid="this.setCustomValidity('Укажите номер для контакта')" name="phone_form" placeholder="+7 (904) 444-22-11" required>
                                         </div>
                                         <div class="modal_form_bottom">
-                                            <div class="checkbox_form"><input id="agreement" name="Согласен" type="checkbox" required><label for="agreement">Я принимаю условия <a href="/terms/">пользовательского соглашения</a></label>
+                                            <div class="checkbox_form">
+												<input id="agreement" oninvalid="this.setCustomValidity('Вы должны согласиться с пользовательским соглашением')" name="Согласен" checked type="checkbox" required>
+												<label for="agreement">Я принимаю условия <a href="/terms/">пользовательского соглашения</a></label>
 											</div>
                                             <div class="more_form">
 												<i class="material-icons">arrow_forward</i>
@@ -208,7 +210,7 @@ $('.price_block, .price_block input, .price_block select, .ui-datepicker, a.fini
                                     </div>
                                 </div>
 <?php else: ?>
-<div class="checkout_price" style="margin-bottom:0;">Бронирование закрыто</div>
+<div class="checkout_price" style="margin-bottom:0;">Все туры проданы</div>
 <?php endif; ?>
                         </div>
                     </div>
@@ -459,7 +461,8 @@ $('.price_block, .price_block input, .price_block select, .ui-datepicker, a.fini
 <?php endif; ?>  
 
                         </section>
-                        <a href="#" class="hide_information"><span>Показать подробности</span> <i class="material-icons">more_horiz</i></a>
+                        <a href="#" style="background-color: #FFE6CC;color: #C46800;" class="show_information">
+							<span>Подробнее</span> <i class="material-icons">more_horiz</i></a>
 
 
 <?php if( get_field('reviews_block') ): ?>
@@ -527,8 +530,13 @@ $txt_reviews = get_sub_field('txt_reviews');
 </div>
 </section>    
 <?php endif; ?>
+<?php
 
+header("Content-Type: text/html; charset=UTF-8");
+echo '<pre>'; print_r(var_dump( get_field('tour_on_map')  ));
+die();
 
+?>
 <?php if( get_field('tour_on_map') ): ?>
                         <section class="margin_bottom map_tour">
                             <div class="row_title">Тур на карте 

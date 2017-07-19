@@ -3,9 +3,11 @@
                 <div class="row">
                     <div class="col-md-4 col-sm-6 col-xs-12">
                         <div class="ftext">
-                            <div class="flogotype"></div>
+                            <div class="flogotype">
+			<img width="70%" src="/wp-content/themes/Hunting/img/logo-white-min.png" title="Logo Ivolga.io footer" alt="Logo Ivolga.io">
+		    </div>
                             Все права защищены © 2017 <span>mysitename</span><br>
-                            <a href="#" class="copy">Пользовательское соглашение</a>
+                            <a href="/terms/" class="copy">Пользовательское соглашение</a>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-6 col-xs-12">
