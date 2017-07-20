@@ -31,7 +31,7 @@ var end   = $('#tour_finish').datepicker('getDate');
 if (start > 0 ) {
 	if (start<end) {
 		var days   = (end - start)/1000/60/60/24;
-		var kol_day = days;
+		var kol_day = days + 1;
 	}
 }
 
@@ -549,7 +549,7 @@ $txt_reviews = get_sub_field('txt_reviews');
 	var lat = <?php echo $location['lat']; ?>;
 	var lng = <?php echo $location['lng']; ?>;
 	var latlng = new google.maps.LatLng(lat, lng);
-	var myOptions = {zoom: 16,center: latlng,mapTypeId: google.maps.MapTypeId.ROADMAP};
+	var myOptions = {zoom: 6,center: latlng,mapTypeId: google.maps.MapTypeId.ROADMAP};
 	var map = new google.maps.Map(document.getElementById("map"), myOptions);
 	var marker = new google.maps.Marker({
 	position: map.getCenter(),

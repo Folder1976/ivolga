@@ -403,3 +403,6 @@ a.hide_information:hover i {color: #fff;}
 .thanks_page .title {margin-bottom: 25px; color: #ff8a00;font-size: 30px; line-height: 30px;}
 .thanks_page .content {margin-bottom: 50px; color: #6a6a6a;font-size: 18px;line-height: 24px;}
 .thanks_page .link a {color: #111;text-decoration: underline; font-size: 18px;line-height: 18px;}
+
+#tour_start{width: 142px;}
+#tour_finish{width: 142px;}
