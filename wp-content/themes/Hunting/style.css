@@ -63,10 +63,18 @@ body {
 }
 .no_scroll {overflow: hidden;}
 
+.menu-item-250{
+	float: right;
+}
+
 a,
 a:before,
 button {-webkit-transition: 200ms ease;-o-transition: 200ms ease;transition: 200ms ease;}
 
+input::-webkit-input-placeholder {color: #1f1f1f;opacity: 0.5;}
+input:-moz-placeholder {color: #1f1f1f;opacity: 0.5;}
+input::-moz-placeholder {color: #1f1f1f;opacity: 0.5;}
+input:-ms-input-placeholder {color: #1f1f1f;opacity: 0.5;}
 
 .tright {text-align: right;}
 .tleft {text-align: left;}
@@ -95,7 +103,7 @@ a.nav-open {cursor: pointer;margin: 0;display: none;text-decoration: none;}
 a.close-nav {padding: 0;position: absolute;top: 5px;right: 10px;display: none;z-index: 9999;}
 a.nav-open  i,
 a.close-nav i {color: #9c9c9c;-webkit-transition: .4s all;-o-transition: .4s all;transition: .4s all;}
-a.nav-open  i{font-size: 30px;line-height: 70px;}
+a.nav-open  i{font-size: 30px;line-height: 40px;}
 a.close-nav i {font-size: 35px;line-height: inherit;}
 a.nav-open:hover i,
 a.close-nav:hover i {color: #111;}
@@ -162,14 +170,14 @@ a.close-nav:hover i {color: #111;}
 .tour_gallery_slider .owl-nav .owl-next i:hover {opacity: 1;}*/
 
 
-.tour_gallery_slider .owl-stage-outer {width: 75%; float: left;height: 500px;overflow: hidden;}
-.tour_gallery_slider .owl-stage-outer img {/*max-height: 400px;*/min-height: 500px;max-width:75%;}
+.tour_gallery_slider .owl-stage-outer {max-height: 340px;width: 75%; float: left;/*height: 500px;*/overflow: hidden;}
+.tour_gallery_slider .owl-stage-outer img {/*min-height: 500px;*/max-width:75%;}
 .tour_gallery_slider .owl-thumbs {width: 25%; float: left;font-size: 0;padding-left: 5px;overflow: hidden;}
-.tour_gallery_slider .owl-thumbs .owl-thumb-item {background: 0; border: 0; outline: none;padding: 0; margin-bottom: 5px;display: block; width: 100%;height: 163px;position: relative;}
+.tour_gallery_slider .owl-thumbs .owl-thumb-item {overflow: hidden;background: 0; border: 0; outline: none;padding: 0; margin-bottom: 5px;display: block; width: 100%;height: 110px;position: relative;}
 .tour_gallery_slider .owl-thumbs .owl-thumb-item:before {content: ''; position: absolute; left: 0; top: 0; bottom: 0; right: 0; background: rgba(54, 54, 54, 0.35);-webkit-transition: .4s all;-o-transition: .4s all;transition: .4s all;}
 .tour_gallery_slider .owl-thumbs .owl-thumb-item.active {display:none;position: absolute; pointer-events: none;z-index: -1;}
 .tour_gallery_slider .owl-thumbs .owl-thumb-item:hover:before {opacity: .2;}
-.tour_gallery_slider .owl-thumbs .owl-thumb-item img {display: block; width: 100%; height: 163px;}
+.tour_gallery_slider .owl-thumbs .owl-thumb-item img {/*position: absolute;margin-top: -50%;*/display: block; width: 100%; /*height: 110px;*/}
 
 .top_price {color: #383838;font-size: 24px;line-height: 30px;}
 .top_price span {color: #ff8a00;}
@@ -284,15 +292,16 @@ a.tour_bron_form {position: fixed;bottom: 0px;left: 0px;right: 0px;display:none;
 .gallery_more .owl-next i,
 .recommended_slider .owl-next i {padding-left: 2px;}
 
+/* Это свечение кнопой галерей
 .gallery_more .owl-prev:hover i,
 .gallery_more .owl-next:hover i,
 .recommended_slider .owl-prev:hover i,
 .recommended_slider .owl-next:hover i{border: 4px solid #ff8a00;color: #ff8a00;}
-
+*/
 .gallery_more .owl-next:before,
-.recommended_slider .owl-next:before{content: ''; position: absolute; top: 0; bottom: 0;right: 0; width: 255px;background:url(./img/right_shadow.png) repeat-y 0 0;}
+.recommended_slider .owl-next:before{content: ''; position: absolute; top: 0; bottom: 0;right: 0; width: 255px;/*background:url(./img/right_shadow.png) repeat-y 0 0;*/}
 .gallery_more .owl-prev:before,
-.recommended_slider .owl-prev:before{content: ''; position: absolute; top: 0; bottom: 0;left: 0; width: 255px;background:url(./img/left_shadow.png) repeat-y 0 0;}
+.recommended_slider .owl-prev:before{content: ''; position: absolute; top: 0; bottom: 0;left: 0; width: 255px;/*background:url(./img/left_shadow.png) repeat-y 0 0;*/}
 
 .recommended_slider .owl-next.disabled,
 .recommended_slider .owl-prev.disabled,
@@ -337,7 +346,7 @@ a.hide_information:hover i {color: #fff;}
 #footer a.mail {color: #fff;font-size: 18px;text-decoration: none;display: inline-block;}
 #footer a.mail i {color: #ff8a00;float: left;margin: 3px 10px 0 0;font-size: 25px;line-height: 25px;}
 #footer .ftext {color: #878787;line-height: 16px;}
-#footer .ftext span {color: #afafaf;}
+#footer .ftext span {color: #878787;}
 #footer .f_social {font-size: 0;}
 #footer .f_social a {width: 35px; height: 35px;padding: 10px; display: inline-block; margin: 0 5px; background: #fff; border-radius: 50%;-webkit-transition: .4s all;-o-transition: .4s all;transition:.4s all;}
 #footer .f_social a img {max-width: 100%; height: auto; display: block; margin: 0 auto;}

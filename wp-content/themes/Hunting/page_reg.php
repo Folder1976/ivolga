@@ -77,7 +77,7 @@ Template Name: Оформление тура
                                     </div>
                                 </div>
                                 <div class="checkout">
-                                    <div class="title">Охотники и гости</div>
+                                    <div class="title">Проживание и питание</div>
                                     <div class="content">
                                         <ul>
                                             <li><?php echo num_decline( $_POST['tour_hunters'] , 'охотник, охотника, охотников' ); ?> х <?php echo num_decline( $_POST['tour_date'] , 'день, дня, дней' ); ?> = <?php echo htmlspecialchars($_POST['summa_tour_hunters']); ?> Р</li>
@@ -86,25 +86,7 @@ Template Name: Оформление тура
                                         </ul>
                                     </div>
                                 </div>
-
-                                <div class="checkout">
-                                    <div class="title">Егерское обслуживание</div>
-                                    <div class="content">
-                                        <ul>
-                                            <li><?php echo htmlspecialchars($_POST['summa_tour_eger']); ?> Р за <?php echo num_decline( $_POST['tour_date'] , 'день, дня, дней' ); ?></li>
-                                        </ul>
-                                    </div>
-                                </div>
-
-<div class="checkout">
-                                    <div class="title">Аренда транспорта</div>
-                                    <div class="content">
-                                        <ul>
-                                            <li><?php echo htmlspecialchars($_POST['summa_tour_avto']); ?> Р за <?php echo num_decline( $_POST['tour_date'] , 'день, дня, дней' ); ?></li>
-                                        </ul>
-                                    </div>
-                                </div>
-
+			
                                 <div class="checkout">
                                     <div class="title">Трофеи</div>
                                     <div class="content">
@@ -113,6 +95,37 @@ Template Name: Оформление тура
                                         </ul>
                                     </div>
                                 </div>
+                                
+                                <!--div class="checkout">
+                                    <div class="title">Егерское обслуживание</div>
+                                    <div class="content">
+                                        <ul>
+                                            <li><?php echo htmlspecialchars($_POST['summa_tour_eger']); ?> Р за <?php echo num_decline( $_POST['tour_date'] , 'день, дня, дней' ); ?></li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="checkout">
+                                    <div class="title">Аренда транспорта</div>
+                                    <div class="content">
+                                        <ul>
+                                            <li><?php echo htmlspecialchars($_POST['summa_tour_avto']); ?> Р за <?php echo num_decline( $_POST['tour_date'] , 'день, дня, дней' ); ?></li>
+                                        </ul>
+                                    </div>
+                                </div-->
+                                
+                                <div class="checkout">
+                                    <div class="title">Услуги на охоте</div>
+                                    <div class="content">
+                                        <ul>
+                                            <li><?php echo num_decline( $_POST['tour_hunters'] , 'охотник, охотника, охотников' ); ?> х
+                                                <?php echo num_decline( $_POST['tour_date'] , 'день, дня, дней' ); ?> = <?php echo htmlspecialchars($_POST['summa_tour_eger'] + $_POST['summa_tour_avto']); ?> Р
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                
 
                                 <div class="summa">К оплате: <span><?php echo htmlspecialchars($_POST['tour_price']); ?></span></div>
 								<input type="submit" name="submit" class="finish" value="Забронировать тур"><br>
@@ -136,7 +149,7 @@ Template Name: Оформление тура
                         </section>
                         <br>
                         <section class="info_block margin_bottom">
-                            <div class="row_title">В Ваш тур включено</div>
+                            <div class="row_title">В ваш тур включено</div>
                             <div class="content included_list">
                                 <?php the_content();?>
                             </div>

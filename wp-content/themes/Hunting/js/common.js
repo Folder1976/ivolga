@@ -47,6 +47,7 @@ $(document).ready(function(){
         animateOut: 'fadeOut',
         animateIn: 'fadeIn',
         thumbs: true,
+		//autoWidth: true,
         thumbImage: true,
         thumbContainerClass: 'owl-thumbs',
         thumbItemClass: 'owl-thumb-item',
@@ -66,6 +67,17 @@ $(document).ready(function(){
         }
 
     });
+
+	function fix_img() {
+		$('.owl-item').each(function(i,elem){
+			var h = $(elem).find('img').height();
+			if( h > 345 ) {
+				var x = -100;
+				$(elem).find('img').css('position','relative');
+				$(elem).find('img').css('top',x+'px');
+			}
+		})
+	}
 
     $('[data-fancybox]').fancybox({
         protect: true,
@@ -211,6 +223,26 @@ var scroll = jQuery(this).attr('href');
       jQuery(".fixed_block").slideDown();
     }
 
+	setInterval(function(){
+		$.each($('.owl-item'), function( index, value ){
+			
+			var div = $('.owl-stage-outer').height()
+			var img = $(this).children('img').height()
+			
+			var margin = 0;
+			if(img > div && img > 0){
+				
+				margin = (img - div) / 2;
+				
+				margin = parseInt(margin);
+				
+			}
+			$(this).children('img').css('margin-top', '-'+margin+'px');
+			
+			//console.log( div + ": " + img + ' ' +margin );
+			
+		})
+	},2000);	
 
 });
 

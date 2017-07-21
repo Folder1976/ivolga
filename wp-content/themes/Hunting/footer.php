@@ -6,7 +6,7 @@
                             <div class="flogotype">
 			<img width="70%" src="/wp-content/themes/Hunting/img/logo-white-min.png" title="Logo Ivolga.io footer" alt="Logo Ivolga.io">
 		    </div>
-                            Все права защищены © 2017 <span>mysitename</span><br>
+                            Все права защищены © 2017 <span>Иволга</span><br>
                             <a href="/terms/" class="copy">Пользовательское соглашение</a>
                         </div>
                     </div>
