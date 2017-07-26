@@ -1,4 +1,8 @@
 <?php
+session_start();
+include "../../../wp-config.php";
+include ABSPATH."/class/orders.php";
+$Orders = new Orders();
 
 $method = $_SERVER['REQUEST_METHOD'];
 
@@ -26,6 +30,8 @@ $summa_tour = trim($_POST["summa_tour"]);
 $summa_tour_eger = trim($_POST["summa_tour_eger"]);
 $summa_tour_avto = trim($_POST["summa_tour_avto"]);
 
+//$tour_hunters = (int)$_POST['tour_hunters'];
+
 $inclusion = trim($_POST["inclusion"]);
 $yslov_money = trim($_POST["tour_yslov_money"]);
 
@@ -38,6 +44,9 @@ $tour_hunters = trim($_POST["tour_hunters"]);
 $tour_gost = trim($_POST["tour_gost"]);
 $tour_trof = trim($_POST["tour_trof"]);
 }
+
+$tmp = explode('=',$tour_hunters);
+$tour_hunters_text = trim($tmp[0]);
 
 
 $message_admin = "Забронирован тур <a href='$tour_link'>$tour_name</a><br>
@@ -55,8 +64,9 @@ Email: <a href='mailto:$email_contact'>$email_client</a>
 $tour_hunters<br>
 $tour_gost<br>
 $tour_trof<br>
-Аренда транспорта: $summa_tour_avto<br>
-Егерское обслуживание: $summa_tour_eger <br>
+
+Услуги на охоте $tour_hunters_text : ".($summa_tour_avto + $summa_tour_eger) ." Р<br>
+
 Итого к оплате: <b>$summa_tour</b><br>
 <h4>Условия оплаты</h4>$yslov_money
 <h4>В тур включено</h4>$inclusion";
@@ -73,12 +83,43 @@ Email: <a href='mailto:$email_contact'>$email_contact</a> <br>
 $tour_hunters<br>
 $tour_gost<br>
 $tour_trof<br>
-Аренда транспорта: $summa_tour_avto<br>
-Егерское обслуживание: $summa_tour_eger <br>
+
+Услуги на охоте $tour_hunters_text : ".($summa_tour_avto + $summa_tour_eger) ."<br>
+
+
 Итого к оплате: $summa_tour
 <h4>Условия оплаты</h4>$yslov_money
 <h4>В тур включено</h4>$inclusion
 <h4>Есть вопросы?</h4><a href='http://ivolga.io/contact/'>Свяжитесь с нами.</a>";
+
+// ==================================================================================
+//Если заказа еще нет
+if(!isset($_SESSION['order_id'])){ 
+	$order_id = $Orders->addOrder($_POST);
+}
+$message_for_finish_pahe = "<div class=\"title\">Спасибо за бронирование тура</div>
+<div class=\"content\">Вам на почту выслано письмо с контактами охотхозяйства и подробной информацией тура. <br>Удачной охоты!</div>
+<div class=\"content\">Свяжитесь с охотхозяйство, обсудите детали тура и способ оплаты. Обратите внимание на срок внесения депозита. <br>
+<h4>Контакты охотхозяйства</h4>
+Адрес: $address_contact<br>
+Представитель: $name_contact<br>
+Телефон: <a href='tel:$phone_contact'>$phone_contact</a> <br>
+Email: <a href='mailto:$email_contact'>$email_contact</a> <br>
+<h4>Ваша охота</h4>
+Период охоты : $date_tour <br>
+$tour_hunters<br>
+$tour_gost<br>
+$tour_trof<br>
+Услуги на охоте $tour_hunters_text : ".($summa_tour_avto + $summa_tour_eger) ."<br>
+Итого к оплате: $summa_tour
+<h4>Условия оплаты</h4>$yslov_money
+<h4>В тур включено</h4>$inclusion
+<h4>Есть вопросы?</h4><a href='http://ivolga.io/contact/'>Свяжитесь с нами.</a>
+</div>";
+
+$_SESSION['tour_text'] = $message_for_finish_pahe;
+$_SESSION['order_id'] = $order_id;
+// ==================================================================================
 
 $message_contact = "<h4>Добрый день.</h4>У вас забронирован тур <a href='$tour_link'>$tour_name</a><br>
 Мы выслали охотнику ваши контакты. Теперь вы можете общаться напрямую.<br><br>
@@ -92,8 +133,9 @@ Email: <a href='mailto:$email_contact'>$email_client</a>
 $tour_hunters<br>
 $tour_gost<br>
 $tour_trof<br>
-Аренда транспорта: $summa_tour_avto<br>
-Егерское обслуживание: $summa_tour_eger <br>
+
+Услуги на охоте $tour_hunters_text : ".($summa_tour_avto + $summa_tour_eger) ."<br>
+
 Итого к оплате: $summa_tour<br>
 <h4>Условия оплаты</h4>$yslov_money
 <h4>В тур включено</h4>$inclusion

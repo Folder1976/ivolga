@@ -134,22 +134,32 @@ $(document).ready(function(){
                 items:3
             }
         }
-    }); 
-
+    });
 
     //E-mail Ajax Send
     $(".form").submit(function() { //Change
+		
+		$(':input[type="submit"]').val('Отправляю заявку');
+		$(':input[type="submit"]').prop('disabled', true);
+		
         var th = $(this);
         $.ajax({
             type: "POST",
+			dataType: 'text',
             url: "/wp-content/themes/Hunting/mail.php", //Change
-            data: th.serialize()
-        }).done(function() {
-            window.location.href = "/thank";
-            setTimeout(function() {
+            data: th.serialize(),
+		success: function(json) {
+			
+			console.log(json);
+			
+		}
+        }).done(function(data) {
+			window.location.href = "/thankyou";
+            
+			setTimeout(function() {
                 // Done Functions
-                th.trigger("reset");
-            }, 1000);
+			    th.trigger("reset");
+            }, 100);
         });
         return false;
     });
@@ -157,6 +167,8 @@ $(document).ready(function(){
 });
 
 $(document).ready(function() {
+
+	console.log('2017-07-25');
 
     //Цели для Яндекс.Метрики и Google Analytics
     $(".count_element").on("click", (function() {

@@ -49,8 +49,12 @@
                         <a class="nav-open" href="#"><i class="material-icons">menu</i></a>
                         <div class="nav">
                             <a class="close-nav" href="#"><i class="material-icons">close</i></a>
-                           <?php $args = array('theme_location' => 'top', 'container'=>false); wp_nav_menu($args); ?>
+                            
+                           <?php $args = array('theme_location' => 'top', 'container'=>false);
+                                wp_nav_menu($args); ?>
                            <?php if( get_field('email_address','option') ): ?>
+                           
+                           <div style="clear: both;"></div>
                            <div class="mobile_mail"><a href="mailto:<?php the_field('email_address','option'); ?>" class="mail_link"><?php the_field('email_address','option'); ?></a></div><?php endif; ?>
                         </div>
                     </div>

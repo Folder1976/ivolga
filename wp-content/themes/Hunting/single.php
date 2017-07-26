@@ -1,4 +1,6 @@
-<?php get_header(); // подключаем header.php ?>
+<?php get_header(); // подключаем header.php
+
+?>
 
         <main id="main">
             <div class="container">
@@ -21,6 +23,11 @@ $(document).ready(function(){
 		firstDay: 1,
 		minDate:"<?php echo $start_date->format('j/m/Y'); ?>",
  		maxDate:"<?php echo $finish_date->format('j/m/Y'); ?>",
+		beforeShow: function() {
+			setTimeout(function(){
+				$('.ui-datepicker').css('z-index', 105);
+			}, 0);
+    }
 	});
 	//valParam();
 
@@ -47,8 +54,8 @@ $(document).ready(function(){
 		kol_trof = $('#summa_trophies').val(),
 		
 		price_trof = <?php the_field('price_trof'); ?> * kol_trof,
-		price_eger = <?php the_field('price_eger'); ?> * kol_day,
-		price_avto = <?php the_field('price_avto'); ?> * kol_day,
+		price_eger = <?php the_field('price_eger'); ?> * kol_day * kol_ohotnik,
+		price_avto = <?php the_field('price_avto'); ?> * kol_day * kol_ohotnik,
 		price_razdel = <?php the_field('price_razdel'); ?> * kol_trof,
 		price_veter = <?php the_field('price_veter'); ?> * kol_trof,
 		
@@ -68,6 +75,7 @@ $(document).ready(function(){
 		$('#summa_tour_hunters').val( (<?php the_field('itog_pit'); ?> * +kol_ohotnik * +kol_day) + (<?php the_field('itog_home'); ?> * (+kol_day * +kol_ohotnik)) );
 		$('#p_summa_tour_hunters').html($('#summa_tour_hunters').val());
 		$('#p_kol_ohotnik').html(kol_ohotnik);
+		$('#p_kol_ohotnik1').html(kol_ohotnik);
 		$('#p_kol_day1').html(kol_day);
 		
 		$('#tour_gost').val(kol_gost);
@@ -119,6 +127,7 @@ $(document).ready(function(){
 			ohotnik_name = 'охотников';
 		}
 		$('#p_ohotnik_name').html(ohotnik_name);
+		$('#p_ohotnik_name1').html(ohotnik_name);
 
 		
 		//Подпись гостей
@@ -154,76 +163,92 @@ $(document).ready(function(){
 	<style>
 		#more_info{
 			position: absolute;
-			width: 344px;
-			right: 353px;
-			height: 582px;
+			width: 358px;
+			/*right: 353px;*/
+			height: 170px;
 			z-index: 100;
+			overflow: hidden;
 			background-color: white;
-			margin-right: 20px;
+			margin-left: -28px;
 			padding: 25px;
 			border: 3px solid #ff8a00;
-			margin-top: -28px;
-			display: none;
+			/*margin-top: -28px;*/
+			display: block;
+			 
 		}
+		/*
+		#key_more_info{
+			position: absolute;
+			border: 3px solid #ff8a00;
+			width: 100px;
+			height: 100px;
+			transform: rotate(45grad);
+		}
+		*/
+		.ui-datepicker{
+			z-index:103;
+		}
+		#key_more_info {
+			width: 150px;
+			height: 0;
+			background: red;
+			position: fixed;
+			margin-left: 75px;
+		}
+		#key_more_info:before {
+			content: "";
+			position: absolute;
+			top: -20px; 
+			left: 0;
+			width: 0;
+			height: 0;
+			border-left: 65px solid transparent;
+			border-right: 65px solid transparent;
+			border-bottom: 20px solid #ff8a00;
+		}
+		
 		div.is_stuck div#more_info{
 			/*right: 332px;*/
 			margin-right: 2px;
 		}
+		.price_finish{
+			z-index:101;
+			position: relative;
+			background-color: white;
+		}
+
 	</style>
 	<script>
-		$(document).on('mouseenter', '.price_block', function(){
+		$(document).on('mouseenter', '#key_more_info', function(){
 			if ($(window).width() > '995'){
-				$('#more_info').show(500);
+				//$('#more_info').show(500);
+				$('#more_info').animate(
+										{
+											height:"362px",
+											'margin-top':"-360px"
+										}, 500, function(){});
+				
 			}
 		});
-		$(document).on('mouseleave', '.price_block', function(){
-			$('#more_info').hide(500);
+		$(document).on('mouseleave', '#more_info', function(){
+			$('#more_info').animate(
+										{
+											height:"170px",
+											'margin-top':"0"
+										}, 500, function(){});
 		});
 		$(document).ready(function(){
 			//console.log($('div.price_block').height());
 			//console.log($('div.price_block').outerHeight());
 			//console.log($('div.price_block').css('height'));
-			$('div#more_info').css('height', $('div.price_block').outerHeight()+'px');
+			//$('div#more_info').css('height', $('div.price_block').outerHeight()+'px');
 		});
 	</script>
 						
                         <div class="price_block" style="z-index:10;">
 <?php if( get_field('page_tour_reg') ): ?>
 						
-						
-						<div id="more_info">
-							
-								<div class="checkout">
-                                    <div class="title">Проживание и питание</div>
-                                    <div class="content">
-                                        <ul>
-											<li><span id="p_kol_ohotnik">1</span> <span id="p_ohotnik_name">охотник</span> х <span id="p_kol_day1"></span> <span id="p_kol_day_name1">день</span> = <span id="p_summa_tour_hunters"></span> Р</li>
-											<li><span id="p_kol_gost">0</span> <span id="p_gost_name">гостей</span> х <span id="p_kol_day2"></span> <span id="p_kol_day_name2">день</span> = <span id="p_summa_tour_gost"></span> Р</li>
-                                        </ul>
-                                    </div>
-                                </div>
-	
-                                <div class="checkout">
-                                    <div class="title">Трофеи</div>
-                                    <div class="content">
-                                        <ul>
-                                            <li><span id="p_tour_trof">1</span> <span id="p_trof_name">трофей</span> = <span id="p_summa_trof"></span> Р</li>
-                                        </ul>
-                                    </div>
-                                </div>
-								
-								<div class="checkout">
-                                    <div class="title">Услуги на охоте</div>
-                                    <div class="content">
-                                        <ul>
-                                            <li><span id="p_summa_uslugi"></span> Р за <span id="p_kol_day3"></span> <span id="p_kol_day_name3">день</span></li>
-                                        </ul>
-                                    </div>
-                                </div>
-			
-
-						</div>
-                                <div class="top_price">цена от <span><?php the_field('start_price_tour'); ?>Р</span></div>
+			                    <div class="top_price">цена от <span><?php the_field('start_price_tour'); ?>Р</span></div>
                                 <div class="top_sub_price">за <?php the_field('summa_day_tour'); ?>, <?php the_field('summa_hunters'); ?></div>
                                 <div class="row">
                                     <div class="col-sm-6">
@@ -285,7 +310,7 @@ $(document).ready(function(){
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="row" style="margin-bottom: 20px;">
                                     <div class="col-sm-12">
                                         <div class="item_form">
                                             <!--label for="">Количество трофеев</label-->
@@ -299,10 +324,43 @@ $(document).ready(function(){
                                         </div>
                                     </div>
                                 </div>
+						<div id="key_more_info"></div>
+						<div id="more_info">
+							
+								<div class="checkout">
+                                    <div class="title">Проживание и питание</div>
+                                    <div class="content">
+                                        <ul>
+											<li><span id="p_kol_ohotnik">1</span> <span id="p_ohotnik_name">охотник</span> х <span id="p_kol_day1"></span> <span id="p_kol_day_name1">день</span> = <span id="p_summa_tour_hunters"></span> Р</li>
+											<li><span id="p_kol_gost">0</span> <span id="p_gost_name">гостей</span> х <span id="p_kol_day2"></span> <span id="p_kol_day_name2">день</span> = <span id="p_summa_tour_gost"></span> Р</li>
+                                        </ul>
+                                    </div>
+                                </div>
+	
+                                <div class="checkout">
+                                    <div class="title">Трофеи</div>
+                                    <div class="content">
+                                        <ul>
+                                            <li><span id="p_tour_trof">1</span> <span id="p_trof_name">трофей</span> = <span id="p_summa_trof"></span> Р</li>
+                                        </ul>
+                                    </div>
+                                </div>
+								
+								<div class="checkout">
+                                    <div class="title">Услуги на охоте</div>
+                                    <div class="content">
+                                        <ul>
+                                            <li><span id="p_kol_ohotnik1">1</span> <span id="p_ohotnik_name1">охотник</span> х <span id="p_kol_day3"></span> <span id="p_kol_day_name3">день</span> = <span id="p_summa_uslugi"></span> Р</li>
+                                        </ul>
+                                    </div>
+                                </div>
+			
+						</div>
+            
 
-                                <div class="price_finish">
+                                <div class="price_finish" style="">
                                     <div class="summa">Итого: <span class="cur"><?php the_field('start_price_tour'); ?> руб.</span></div>
-                                    <a href="#modal_form_price" class="finish" data-fancybox>Рассчитать тур</a><br>
+                                    <a href="#modal_form_price" class="finish" data-fancybox>Рассчитать тур</a>
                                     <div class="no_money_block">вы пока ни за что не платите</div>
                                 </div>
                                 <div class="hide">

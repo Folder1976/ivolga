@@ -1,4 +1,5 @@
-<?php get_header(); // подключаем header.php ?>
+<?php get_header(); // подключаем header.php
+?>
 <main id="main">
             <div class="container">
 <?php if ( have_posts() ) while ( have_posts() ) : the_post(); // старт цикла ?>

@@ -26,6 +26,18 @@ $self = preg_replace('|^.*/mu-plugins/|i', '', $self);
  */
 global $menu, $submenu, $parent_file, $submenu_file;
 
+$menu[] =   array(
+    '0'=> "Заказы",
+    '1'=> "edit_posts",
+    '2'=> "edit-orders.php",
+    '3'=> "",
+    '4'=> "menu-top menu-list-view",
+    '5'=> "list-view",
+    '6'=> "dashicons-list-view",
+  );
+
+
+
 /**
  * Filters the parent file of an admin menu sub-menu item.
  *

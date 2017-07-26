@@ -33,7 +33,11 @@
         -webkit-transform:translateX(0);-ms-transform:translateX(0);transform:translateX(0);
         overflow: auto;-webkit-overflow-scrolling: touch;
     }
-    .nav:before {content: ''; display: block;margin: 0 auto 30px auto; width: 250px; height: 60px; background:#d8d8d8;}
+    .nav:before {content: ''; display: block;margin: 0 auto 30px auto; width: 250px; height: 60px;
+                    background-image: url(/wp-content/themes/Hunting/img/logo-min.png);
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    /*background:#d8d8d8;*/}
     .nav {margin: 0;padding: 25px; float: none;}
     #hnav .nav ul li {margin: 0; display: block;text-align: center;}
     #hnav .nav ul li a{padding:15px 10px;font-size:18px; line-height: inherit;}
@@ -67,6 +71,9 @@
 	.row_flex > div {left:0 !important; right:0 !important; width:auto !important;}
 	.tour_gallery_slider .owl-stage-outer img {max-width:100%;}
 
+    
+    
+    
     .fixed_block {display:none;}
 	a.tour_bron_form {display:block;}
 
@@ -88,7 +95,7 @@
     .animal_select .item {margin-bottom: 15px;}
     .animal_select {margin-bottom: 25px;}
 
-    .price_block .row > div {width: 100%;}
+    .price_block .row > div {/*width: 100%;*/float: left;width: 50%;}
     .item_form select,
     .item_form select.small_bg {background-position: 96% center;}
     
@@ -103,7 +110,7 @@
     .tour_gallery_slider .owl-stage-outer {height: auto;}
     .tour_gallery_slider .owl-stage-outer img {min-height: 250px; max-height: 250px;height: auto; max-width:none;}
         
-    .conditions > div.item {width: 20%;margin: 0 0 25px 0;text-align: center;vertical-align: top;font-size: 14px;}
+    .conditions > div.item {width: 20%;margin: 0 0 5px 0;text-align: center;vertical-align: top;font-size: 14px;}
     
     .price_block {margin-bottom: 25px;}
 }

@@ -18,7 +18,7 @@ Template Name: Оформление тура
         <link rel="stylesheet" href="<?php echo get_template_directory_uri();?>/style.css">
         <link rel="stylesheet" href="<?php echo get_template_directory_uri();?>/media.css">
         <script src="<?php echo get_template_directory_uri();?>/libs/modernizr/modernizr.js"></script>
-	<?php wp_head(); // необходимо для работы плагинов и функционала ?>
+        <!--?php include ABSPATH."/wp-content/themes/Hunting/header.php"; ?-->
         <script src="<?php echo get_template_directory_uri();?>/libs/jquery/jquery-1.11.2.min.js"></script>
         <script src="<?php echo get_template_directory_uri();?>/js/jquery-ui.js"></script>
 </head>
@@ -179,7 +179,8 @@ Template Name: Оформление тура
         <script src="<?php echo get_template_directory_uri();?>/js/thumb_slider.js"></script>
         <script src="<?php echo get_template_directory_uri();?>/libs/fancy/jquery.fancybox.min.js"></script>
 		<script src="<?php echo get_template_directory_uri();?>/js/jquery.sticky-kit.min.js"></script>
-<?php wp_footer(); // необходимо для работы плагинов и функционала  ?>
+<!--?php wp_footer(); // необходимо для работы плагинов и функционала  ?-->
+<?php include ABSPATH."/wp-content/themes/Hunting/footer.php"; ?>
        <script src="<?php echo get_template_directory_uri();?>/js/common.js"></script>
 
 </body>

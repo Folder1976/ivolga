@@ -183,7 +183,7 @@ a.close-nav:hover i {color: #111;}
 .top_price span {color: #ff8a00;}
 .top_sub_price {margin-bottom: 35px; color: #a9a9a9;font-size: 20px;line-height: 20px;}
 
-.price_block {border: 3px solid #ff8a00;padding: 25px;-webkit-transition: .3s all;-o-transition: .3s all;transition:.3s all;}
+.price_block {border: 3px solid #ff8a00;padding: 25px;-webkit-transition: .3s all;-o-transition: .3s all;transition:.3s all;padding-bottom: 10px;}
 .price_block.is_stuck {margin-top:25px;}
 .price_block.grey {border: 3px solid #e7e7e7;} 
 .price_block .price_finish {margin: 0 -25px 0 -25px;padding: 30px 25px 2px 25px;color: #878787; border-top: 2px solid #ff8a00;text-align: center;}
@@ -193,7 +193,7 @@ a.close-nav:hover i {color: #111;}
 .price_block a.finish {display: block;width: 100%; color: #fff;text-align: center; font-size: 20px;text-decoration: none; line-height: 70px;background: #ff8a00; border: 0; outline: none;}
 .price_block input.finish:hover,
 .price_block a.finish:hover {opacity: .8;}
-.price_block .no_money_block {color: #878787;text-align: center;}
+.price_block .no_money_block {color: #878787;text-align: center;margin-top: 10px;}
 .price_block .agreement {margin: 20px 0 0 0; text-align: center;}
 .price_block .agreement a {color: #111;text-decoration: underline;font-size: 16px;display: inline-block;}
 .price_block .row {margin: 0 -10px}
@@ -212,7 +212,7 @@ a.tour_bron_form {position: fixed;bottom: 0px;left: 0px;right: 0px;display:none;
 .date_tour .title {color: #1f1f1f;}
 .date_tour .datte {color: #787878;}
 
-.conditions {margin: 0 0 40px 0; font-size: 0;}
+.conditions {margin: 0 0 15px 0; font-size: 0;}
 .conditions > div.item {margin: 5px 25px 10px 0;display: inline-block;font-size: 16px;color: #848484;}
 .conditions > div.item:last-child {margin-right: 0;}
 .conditions > div.item .icon {margin-bottom: 10px; width: 30px; height: 30px;margin: 0 auto 10px auto;}
@@ -267,7 +267,7 @@ a.tour_bron_form {position: fixed;bottom: 0px;left: 0px;right: 0px;display:none;
 .checkout ul li {color: #787878;}
 
 .icon img{margin-top: 4px; margin-bottom: 9px;}
-.icon {width: 25px;}
+.icon {width: 100%;}
 .gallery_more,
 .recommended_slider {position: relative;}
 
@@ -407,11 +407,11 @@ a.hide_information:hover i {color: #fff;}
 .thanks_application body {-webkit-box-flex: 1;-ms-flex: 1;flex: 1;}
 
 .thanks_page {text-align: center;}
-.thanks_page .logotype {margin-bottom: 60px;}
+.thanks_page .logotype {margin-top: 70px;margin-bottom: 0px;}
 .thanks_page .logotype span {width: 350px; height: 130px; display: inline-block;}
 .thanks_page .title {margin-bottom: 25px; color: #ff8a00;font-size: 30px; line-height: 30px;}
 .thanks_page .content {margin-bottom: 50px; color: #6a6a6a;font-size: 18px;line-height: 24px;}
 .thanks_page .link a {color: #111;text-decoration: underline; font-size: 18px;line-height: 18px;}
 
-#tour_start{width: 142px;}
-#tour_finish{width: 142px;}
+#tour_start{width: 100%;}
+#tour_finish{width: 100%;}
