@@ -5,7 +5,7 @@
             <div class="container">
                 <?php if( get_field('title_header','option') ): ?><div class="top"><?php the_field('title_header','option'); ?></div><?php endif; ?>
                 <?php if( get_field('sub_title_header','option') ): ?><div class="sub_top"><?php the_field('sub_title_header','option'); ?></div><?php endif; ?>
-                <?php if( get_field('txt_url_header','option') ): ?><div class="link"><a href=".animal_select"><?php the_field('txt_url_header','option'); ?></a></div><?php endif; ?>
+                <?php if( get_field('txt_url_header','option') ): ?><div class="link"><a href=".animal_select" class="btn"><?php the_field('txt_url_header','option'); ?></a></div><?php endif; ?>
             </div>
         </header>
 <?php endif; ?>
@@ -45,6 +45,60 @@
 <?php endif; ?>
 
 
+<div class="block">
+    <div class="block-title">Как это работает?</div>
+    <div class="block-content">
+        <ol>
+            <li>
+                <i class="ic-hunting-target"></i>
+                <div class="header">Найди охоту</div>
+                <div class="text">Поиск по трофею, месту и цене тура</div>
+            </li>
+            <li>
+                <i class="ic-calendar"></i>
+                <div class="header">Забронируй тур</div>
+                <div class="text">Выбери дату и другие подробности охоты</div>
+            </li>
+            <li>
+                <i class="ic-shaking-hands"></i>
+                <div class="header">Общайся с хозяйством</div>
+                <div class="text">Получи прямые контакты хозяйства и обсуди поездку</div>
+            </li>
+        </ol>
+    </div>
+</div>
+
+<hr>
+
+<div class="block">
+    <div class="block-title">Что включено в тур?</div>
+    <div class="block-content">
+        <ul class="orange-list">
+            <li><i class="ic-check"></i>Трофей</li>
+            <li><i class="ic-check"></i>Лицензия</li>
+            <li><i class="ic-check"></i>Егерское обслуживание</li>
+            <li><i class="ic-check"></i>Транспорт на охоте</li>
+            <li><i class="ic-check"></i>Разделка трофея</li>
+            <li><i class="ic-check"></i>Ветэкспертиза</li>
+            <li><i class="ic-check"></i>Проживание</li>
+            <li><i class="ic-check"></i>Питание</li>
+        </ul>
+    </div>
+</div>
+
+<hr>
+
+<div class="block">
+    <div class="block-title">Прямое общение с охотхозяйством</div>
+    <div class="block-content">
+        <p>После бронирования тура, ты получишь контакты хозяйства и обсудишь детали охоты.
+Прямая оплата охотхозяйству без посредников и комиссии.</p>
+    </div>
+</div>
+
+<!--
+<?php if( get_field('txt_url_header','option') ): ?><div class="link"><a href=".animal_select" class="btn"><?php the_field('txt_url_header','option'); ?></a></div><?php endif; ?>
+-->
             </div>
         </main>
 

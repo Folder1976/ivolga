@@ -41,6 +41,83 @@ function num_decline( $number, $titles, $param2 = '', $param3 = '' ){
 	return $number .' '. $titles[ ($number%100 > 4 && $number %100 < 20) ? 2 : $cases[min($number%10, 5)] ];
 }
 
+function my_request( $request ) {
+	
+	$dummy_query = new WP_Query();
+    $dummy_query->parse_query( $request );
+
+    if ( $dummy_query->is_archive() ) {
+		
+		$request['posts_per_page'] = 1000;
+		
+		//Сортировка по цене	
+		if(isset($_GET['price']) AND $_GET['price'] == 'Дорогие'){
+			$request['meta_key'] = 'start_price_tour';
+			$request['orderby'] = 'meta_value_num';
+			$request['order'] = 'DESC';
+		}elseif(isset($_GET['price']) AND $_GET['price'] == 'Дешевые'){
+			$request['meta_key'] = 'start_price_tour';
+			$request['orderby'] = 'meta_value_num';
+			$request['order'] = 'ASC';
+		}
+	}
+
+	
+    return $request;
+}
+add_filter( 'request', 'my_request' );
+
+
+function region_list() {
+	
+	global $typenow; // тип поста
+	
+		$current_tax = isset( $_GET[$tax] ) ? $_GET[$tax] : '';
+		$tax_obj = get_taxonomy($tax);
+		$tax_name = mb_strtolower($tax_obj->labels->name);
+		// функция mb_strtolower переводит в нижний регистр
+		// она может не работать на некоторых хостингах, если что, убирайте её отсюда
+		$terms = get_terms($tax);
+		//$terms = get_terms('geo_map');
+		if(count($terms) > 0) {
+			echo "<select name='$tax' id='$tax' class='postform'>";
+			echo "<option value=''>Все $tax_name</option>";
+			foreach ($terms as $term) {
+				echo '<option value='. $term->slug, $current_tax == $term->slug ? ' selected="selected"' : '','>' . $term->name .' (' . $term->count .')</option>'; 
+			}
+			echo "</select>";
+		}
+		
+	
+}
+ 
+add_action( 'region_list_view', 'region_list' );
+
+function true_taxonomy_filter() {
+	
+	global $typenow; // тип поста
+	if( $typenow == 'post' ){ // для каких типов постов отображать
+		$taxes = array('platform', 'game'); // таксономии через запятую
+		foreach ($taxes as $tax) {
+			$current_tax = isset( $_GET[$tax] ) ? $_GET[$tax] : '';
+			$tax_obj = get_taxonomy($tax);
+			$tax_name = mb_strtolower($tax_obj->labels->name);
+			// функция mb_strtolower переводит в нижний регистр
+			// она может не работать на некоторых хостингах, если что, убирайте её отсюда
+			$terms = get_terms($tax);
+			if(count($terms) > 0) {
+				echo "<select name='$tax' id='$tax' class='postform'>";
+				echo "<option value=''>Все $tax_name</option>";
+				foreach ($terms as $term) {
+					echo '<option value='. $term->slug, $current_tax == $term->slug ? ' selected="selected"' : '','>' . $term->name .' (' . $term->count .')</option>'; 
+				}
+				echo "</select>";
+			}
+		}
+	}
+}
+ 
+add_action( 'restrict_manage_posts', 'true_taxonomy_filter' );
 
 function tp_catpostcount($atts) {
 extract(shortcode_atts(array( "id" => '' ), $atts));

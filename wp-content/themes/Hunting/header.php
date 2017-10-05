@@ -39,28 +39,48 @@
 <body <?php body_class(); // все классы для body ?>>
 
 <div id="hnav">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-2 col-xs-4">
-                        <a href="/" class="logotype">
-		<img width="70%" src="/wp-content/themes/Hunting/img/logo-min.png" title="Logo Ivolga.io" alt="Logo Ivolga.io"></a>
-                    </div>
-                    <div class="col-sm-8 col-xs-8 col-nav">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-sm-6">
+                <nav class="pull-left hidden-lg hidden-md">
+                    <a href="/" class="arrow-back hidden-sm hidden-home pull-left"><i class="material-icons">arrow_back</i></a>
+                    <?php if ( is_front_page() ) { ?>
                         <a class="nav-open" href="#"><i class="material-icons">menu</i></a>
-                        <div class="nav">
-                            <a class="close-nav" href="#"><i class="material-icons">close</i></a>
-                            
-                           <?php $args = array('theme_location' => 'top', 'container'=>false);
-                                wp_nav_menu($args); ?>
-                           <?php if( get_field('email_address','option') ): ?>
-                           
-                           <div style="clear: both;"></div>
-                           <div class="mobile_mail"><a href="mailto:<?php the_field('email_address','option'); ?>" class="mail_link"><?php the_field('email_address','option'); ?></a></div><?php endif; ?>
+                    <?php } else { ?>
+                        <a class="nav-open hidden-xs" href="#"><i class="material-icons">menu</i></a>
+                    <?php } ?>
+                    <?php if ( is_category() ) { ?>
+                        <span class="mob-title-cat hidden-sm"><?php wp_title(''); ?></span>
+                    <?php } ?>
+                    <div class="nav">
+                        <div class="nav-top"><img width="70%" src="/wp-content/themes/Hunting/img/logo-white-min.png" title="Logo Ivolga.io" alt="Logo Ivolga.io"></div>
+                        <a class="close-nav" href="#"><i class="material-icons">close</i></a><?php
+                        $args = array('theme_location' => 'bottom', 'container'=>false, 'menu_class' => 'mob-menu');
+                            wp_nav_menu($args);
+                        ?>
+                        <div class="nav-bottom">
+                            <a href="/contact/" class="btn-transparent write-us">Написать нам</a>
                         </div>
                     </div>
-                    <div class="col-sm-2 hidden-xs">
-<?php if( get_field('email_address','option') ): ?><a href="mailto:<?php the_field('email_address','option'); ?>" class="mail_link"><?php the_field('email_address','option'); ?></a><?php endif; ?>
-                    </div>
+                </nav>
+                <div class="logo">
+                    <a href="/" class="logotype"><img width="70%" src="/wp-content/themes/Hunting/img/logo-white-min.png" title="Logo Ivolga.io" alt="Logo Ivolga.io"></a>
                 </div>
             </div>
+            <div class="col-md-8 col-sm-6">
+                <a href="/contact/" class="btn-transparent pull-right write-us write-us__top">Написать нам</a>
+                <?php
+                wp_nav_menu( array(
+                    'theme_location' => 'top',
+                    'menu_class'     => 'top-menu',
+                ) );
+                ?>
+
+                
+            </div>
         </div>
+    </div>
+</div>
+
+
+

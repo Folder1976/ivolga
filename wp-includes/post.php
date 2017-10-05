@@ -1668,6 +1668,7 @@ function get_posts( $args = null ) {
 		'suppress_filters' => true
 	);
 
+	
 	$r = wp_parse_args( $args, $defaults );
 	if ( empty( $r['post_status'] ) )
 		$r['post_status'] = ( 'attachment' == $r['post_type'] ) ? 'inherit' : 'publish';
@@ -1686,6 +1687,8 @@ function get_posts( $args = null ) {
 	$r['no_found_rows'] = true;
 
 	$get_posts = new WP_Query;
+	
+	
 	return $get_posts->query($r);
 
 }

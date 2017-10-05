@@ -1,8 +1,8 @@
 <?php
 /*
 Plugin Name: Endurance Page Cache
-Description: This cache plugin is primarily for cache purging of the additional layers of cache that may be available on a Bluehost account.
-Version: 0.9
+Description: This cache plugin is primarily for cache purging of the additional layers of cache that may be available on your hosting account.
+Version: 1.1
 Author: Mike Hansen
 Author URI: https://www.mikehansen.me/
 License: GPLv2 or later
@@ -12,21 +12,20 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 // Do not access file directly!
 if ( ! defined( 'WPINC' ) ) { die; }
 
-define( 'EPC_VERSION', 0.9 );
+define( 'EPC_VERSION', 1.1 );
 
 if ( ! class_exists( 'Endurance_Page_Cache' ) ) {
 	class Endurance_Page_Cache {
 		function __construct() {
 			if ( defined( 'DOING_AJAX' ) ) {return;}
+			if ( isset( $_GET['doing_wp_cron'] ) ) {return;}
 			$this->hooks();
 			$this->purged = array();
 			$this->trigger = null;
+			$this->force_purge = false;
 			$this->cache_level = get_option( 'endurance_cache_level', 2 );
 			$this->cache_dir = WP_CONTENT_DIR . '/endurance-page-cache';
 			$this->cache_exempt = array( 'wp-admin', '.', 'checkout', 'cart', 'wp-json', '%', '=', '@', '&', ':', ';' );
-			if ( ! wp_next_scheduled( 'epc_purge' ) ) {
-				wp_schedule_event( time() + ( HOUR_IN_SECONDS * 2 ), 'epc_weekly', 'epc_purge' );
-			}
 		}
 
 		function hooks() {
@@ -34,18 +33,18 @@ if ( ! class_exists( 'Endurance_Page_Cache' ) ) {
 				add_action( 'init', array( $this, 'start' ) );
 				add_action( 'shutdown', array( $this, 'finish' ) );
 
-				add_action( 'admin_init', array( $this, 'register_cache_settings' ) );
-
 				add_filter( 'mod_rewrite_rules', array( $this, 'htaccess_contents_rewrites' ), 77 );
+				add_action( 'generate_rewrite_rules', array( $this, 'config_nginx' ) );
 			}
 			if ( $this->is_enabled( 'browser' ) ) {
 				add_filter( 'mod_rewrite_rules', array( $this, 'htaccess_contents_expirations' ), 88 );
 			}
 
+			add_action( 'admin_init', array( $this, 'register_cache_settings' ) );
 			add_action( 'save_post', array( $this, 'save_post' ) );
 			add_action( 'edit_terms', array( $this, 'edit_terms' ), 10, 2 );
 
-			add_action( 'comment_post', array( $this, 'comment' ) );
+			add_action( 'comment_post', array( $this, 'comment' ), 10, 2 );
 
 			add_action( 'updated_option', array( $this, 'option_handler' ), 10, 3 );
 
@@ -67,37 +66,39 @@ if ( ! class_exists( 'Endurance_Page_Cache' ) ) {
 		}
 
 		function admin_toolbar( $wp_admin_bar ) {
-			$args = array(
-				'id'    => 'epc_purge_menu',
-				'title' => 'Caching',
-			);
-			$wp_admin_bar->add_node( $args );
-
-			$args = array(
-				'id'     => 'epc_purge_menu-purge_all',
-				'title'  => 'Purge All',
-				'parent' => 'epc_purge_menu',
-				'href'   => add_query_arg( array( 'epc_purge_all' => true ) ),
-			);
-			$wp_admin_bar->add_node( $args );
-
-			if ( ! is_admin() ) {
+			if ( current_user_can( 'manage_options' ) ) {
 				$args = array(
-					'id'     => 'epc_purge_menu-purge_single',
-					'title'  => 'Purge This Page',
+					'id'    => 'epc_purge_menu',
+					'title' => 'Caching',
+				);
+				$wp_admin_bar->add_node( $args );
+
+				$args = array(
+					'id'     => 'epc_purge_menu-purge_all',
+					'title'  => 'Purge All',
 					'parent' => 'epc_purge_menu',
-					'href'   => add_query_arg( array( 'epc_purge_single' => true ) ),
+					'href'   => add_query_arg( array( 'epc_purge_all' => true ) ),
+				);
+				$wp_admin_bar->add_node( $args );
+
+				if ( ! is_admin() ) {
+					$args = array(
+						'id'     => 'epc_purge_menu-purge_single',
+						'title'  => 'Purge This Page',
+						'parent' => 'epc_purge_menu',
+						'href'   => add_query_arg( array( 'epc_purge_single' => true ) ),
+					);
+					$wp_admin_bar->add_node( $args );
+				}
+
+				$args = array(
+					'id'     => 'epc_purge_menu-cache_settings',
+					'title'  => 'Cache Settings',
+					'parent' => 'epc_purge_menu',
+					'href'   => admin_url( 'options-general.php#epc_settings' ),
 				);
 				$wp_admin_bar->add_node( $args );
 			}
-
-			$args = array(
-				'id'     => 'epc_purge_menu-cache_settings',
-				'title'  => 'Cache Settings',
-				'parent' => 'epc_purge_menu',
-				'href'   => admin_url( 'options-general.php#epc_settings' ),
-			);
-			$wp_admin_bar->add_node( $args );
 		}
 
 		function register_cache_settings() {
@@ -151,7 +152,7 @@ if ( ! class_exists( 'Endurance_Page_Cache' ) ) {
 		}
 
 		function option_handler( $option, $old_value, $new_value ) {
-			$exempt_options = array( '_transient', 'cron', 'session', 'sync', 'schedul' );
+			$exempt_options = array( '_transient', 'cron', 'session', 'sync', 'schedul', 'user_hit_count', 'jetpack_protect', 'rewrite_rules', 'tribe_last', 'wordfence', 'traffic', 'stats' );
 			foreach ( $exempt_options as $exempt_option ) {
 				if ( false !== strpos( $option, $exempt_option ) ) {
 					return;
@@ -164,7 +165,7 @@ if ( ! class_exists( 'Endurance_Page_Cache' ) ) {
 			}
 		}
 
-		function comment( $comment_id, $comment_approved ) {
+		function comment( $comment_id, $comment_approved = null ) {
 			$comment = get_comment( $comment_id );
 			if ( property_exists( $comment, 'comment_post_ID' ) ) {
 				$post_url = get_permalink( $comment->comment_post_ID );
@@ -199,7 +200,9 @@ if ( ! class_exists( 'Endurance_Page_Cache' ) ) {
 
 		function edit_terms( $term_id, $taxonomy ) {
 			$url = get_term_link( $term_id );
-			$this->purge_single( $url );
+			if ( ! is_wp_error( $url ) ) {
+				$this->purge_single( $url );
+			}
 		}
 
 		function write( $page ) {
@@ -214,14 +217,14 @@ if ( ! class_exists( 'Endurance_Page_Cache' ) ) {
 					return $page;
 				}
 
-				if ( ! is_dir( $this->path ) ) {
-					mkdir( $this->path, 0755, true );
-				}
-
 				if ( false !== strpos( $page, '</html>' ) ) {
 					$page .= "\n<!--Generated by Endurance Page Cache-->";
 				}
-				if ( 'BlueHost' !== get_option( 'mm_brand' ) ) {
+
+				if ( false === strpos( __DIR__, 'public_html' ) ) {
+					if ( ! is_dir( $this->path ) ) {
+						mkdir( $this->path, 0755, true );
+					}
 					file_put_contents( $this->path . '_index.html', $page, LOCK_EX );
 				}
 			} else {
@@ -263,7 +266,7 @@ if ( ! class_exists( 'Endurance_Page_Cache' ) ) {
 
 		function purge_throttle( $value ) {
 			$purged = get_transient( 'epc_purged_' . md5( $value ) );
-			if ( true == $purged || in_array( md5( $value ), $this->purged ) ) {
+			if ( ( true == $purged || in_array( md5( $value ), $this->purged ) ) && false == $this->force_purge ) {
 				return true;
 			}
 			set_transient( 'epc_purged_' . md5( $value ), time(), 60 );
@@ -411,8 +414,10 @@ if ( ! class_exists( 'Endurance_Page_Cache' ) ) {
 			$base = parse_url( trailingslashit( get_option( 'home' ) ), PHP_URL_PATH );
 			$cache_url = $base . str_replace( get_option( 'home' ), '', WP_CONTENT_URL . '/endurance-page-cache' );
 			$cache_url = str_replace( '//', '/', $cache_url );
-			$additions = 'Options -Indexes
-Header set X-Endurance-Cache-Level "' . $this->cache_level . '"
+			$additions = 'Header set X-Endurance-Cache-Level "' . $this->cache_level . '"' . "\n";
+
+			if ( false === strpos( __DIR__, 'public_html' ) ) {
+				$additions .= 'Options -Indexes ' . "\n" . '
 <IfModule mod_rewrite.c>
 	RewriteEngine On
 	RewriteBase ' . $base . '
@@ -423,6 +428,7 @@ Header set X-Endurance-Cache-Level "' . $this->cache_level . '"
 	RewriteCond %{DOCUMENT_ROOT}' . $cache_url . '/$1/_index.html -f
 	RewriteRule ^(.*)$ ' . $cache_url . '/$1/_index.html [L]
 </IfModule>' . "\n";
+			}
 			return $additions . $rules;
 		}
 
@@ -459,9 +465,12 @@ Header set X-Endurance-Cache-Level "' . $this->cache_level . '"
 
 		function is_enabled( $type = 'page' ) {
 
-			$plugins = implode( ' ', get_option( 'active_plugins', array() ) );
-			if ( strpos( $plugins, 'cach' ) || strpos( $plugins, 'wp-rocket' ) ) {
-				return false;
+			$plugins = get_option( 'active_plugins', array() );
+			if ( ! empty( $plugins ) ) {
+				$plugins = implode( ' ', $plugins );
+				if ( strpos( $plugins, 'cach' ) || strpos( $plugins, 'wp-rocket' ) ) {
+					return false;
+				}
 			}
 
 			$active_theme = array(
@@ -524,7 +533,8 @@ Header set X-Endurance-Cache-Level "' . $this->cache_level . '"
 		}
 
 		function do_purge() {
-			if ( ( isset( $_GET['epc_purge_all'] ) || isset( $_GET['epc_purge_single'] ) ) && is_user_logged_in() ) {
+			if ( ( isset( $_GET['epc_purge_all'] ) || isset( $_GET['epc_purge_single'] ) ) && is_user_logged_in() && current_user_can( 'manage_options' ) ) {
+				$this->force_purge = true;
 				if ( isset( $_GET['epc_purge_all'] ) ) {
 					$this->purge_trigger = 'toolbar_manual_all';
 					$this->purge_all();
@@ -642,8 +652,12 @@ Header set X-Endurance-Cache-Level "' . $this->cache_level . '"
 			save_mod_rewrite_rules();
 		}
 
+		function config_nginx() {
+			$this->toggle_nginx( $this->cache_level );
+		}
+
 		function toggle_nginx( $new_value = 0 ) {
-			if ( 'BlueHost' === get_option( 'mm_brand' ) ) {
+			if ( false !== strpos( __DIR__, 'public_html' ) ) {
 				$domain = parse_url( get_option( 'siteurl' ), PHP_URL_HOST );
 				$domain = str_replace( 'www.', '', $domain );
 				$path = explode( 'public_html', __DIR__ );

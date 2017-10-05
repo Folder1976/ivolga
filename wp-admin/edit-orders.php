@@ -1,7 +1,3 @@
-<script src="//code.jquery.com/jquery-3.0.0.slim.min.js"></script>
-<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
-<link rel='stylesheet' id='acf-global-css'  href='https://ivolga.io/wp-content/plugins/advanced-custom-fields-pro/assets/css/acf-global.css?ver=5.5.5' type='text/css' media='all' />
-<link rel='stylesheet' id='wpforms-menu-css'  href='https://ivolga.io/wp-content/plugins/wpforms-lite/assets/css/admin-menu.css?ver=1.3.8' type='text/css' media='all' />
 <?php
 /**
  * Edit Comments Administration Screen.
@@ -15,6 +11,10 @@ require_once( dirname( __FILE__ ) . '/admin.php' );
 
 require_once( ABSPATH . 'wp-admin/admin-header.php' );
 ?>
+<script src="//code.jquery.com/jquery-3.0.0.slim.min.js"></script>
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+<link rel='stylesheet' id='acf-global-css'  href='https://ivolga.io/wp-content/plugins/advanced-custom-fields-pro/assets/css/acf-global.css?ver=5.5.5' type='text/css' media='all' />
+<link rel='stylesheet' id='wpforms-menu-css'  href='https://ivolga.io/wp-content/plugins/wpforms-lite/assets/css/admin-menu.css?ver=1.3.8' type='text/css' media='all' />
 
 <div class="wrap">
 <h1 class="wp-heading-inline">Заказы</h1>
@@ -24,6 +24,21 @@ require_once( ABSPATH . 'wp-admin/admin-header.php' );
 	//include "../../../wp-config.php";
 	include ABSPATH."/class/orders.php";
 	$Orders = new Orders();
+	
+	
+	//Аяксы
+	if(isset($_GET['key'])){
+		
+		if($_GET['key'] == 'delete'){
+			
+			$Orders->dellOrder((int)$_GET['order_id']);
+		
+		}
+		
+		
+		return true;
+	}
+	
 	
 	$orders_list = $Orders->getOrders();
 	
@@ -58,7 +73,7 @@ require_once( ABSPATH . 'wp-admin/admin-header.php' );
 			<th>Клиент</th>
 			<th>Телефон</th>
 			<th>Сумма</th>
-			<th>* * *</th>
+			<th colspan="2">* * *</th>
 		</tr>
 	<?php foreach($orders_list as $index => $row){ ?>
 		<tr id="<?php echo $index; ?>">
@@ -69,10 +84,11 @@ require_once( ABSPATH . 'wp-admin/admin-header.php' );
 			<td><?php echo $row['phone_client']; ?></td>
 			<td style="text-align: right;"><?php echo $row['summa_tour']; ?> P</td>
 			<td><a href="javascript:;" class="detail">Детально</a></td>
+			<td><a href="javascript:;" class="delete">Удалить</a></td>
 		</tr>		
 		
 		<tr id="detail_<?php echo $index; ?>" style="display: none;">
-			<td colspan="7">
+			<td colspan="8">
 				<b>Номер заказа : </b><?php echo $index; ?><br>
 				<b>Дата заказа : </b><?php echo $row['date']; ?><br>
 				<b>Период : </b><?php echo $row['date_tour']; ?><br>
@@ -116,6 +132,29 @@ require_once( ABSPATH . 'wp-admin/admin-header.php' );
 		}
 			
 	});
+	
+	$(document).on('click', '.delete', function(){
+		
+		var order_id = $(this).parent('td').parent('tr').attr('id');
+		
+		var r = confirm("Удалить?");
+		if (r == true) {
+			$.ajax({
+				url: '/wp-admin/edit-orders.php?order_id='+order_id+'&key=delete',
+				method: "POST",
+				dataType: 'text',
+				success: function(json) {
+					
+					//console.log(json);
+					
+					$('#'+order_id).hide(250);
+					
+				}
+			});
+		}
+		
+	});
+	
 </script>
 <?php
 

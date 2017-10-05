@@ -1,0 +1,24 @@
+RewriteEngine on
+RewriteCond %{HTTPS} off
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+
+# First rule - if this is an SSL connection, then redirect
+# to http://example.com then stop processing other rules
+
+
+# Use PHP7 Single php.ini as default
+AddHandler application/x-httpd-php70s .php
+
+# BEGIN WordPress
+AddHandler application/x-httpd-php70s .php
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
+
+# END WordPress

@@ -111,18 +111,35 @@ $(document).ready(function(){
         }
     }); 
 
+
+
+    var fixOwl = function(){
+        var $stage = $('.gallery_more .owl-stage'),
+            stageW = $stage.width(),
+            $el = $('.gallery_more .owl-item'),
+            elW = 30;
+        $el.each(function() {
+            elW += $(this).width()+ ($(this).css("margin-right").slice(0, -2))
+        });
+        if ( elW > stageW ) {
+            $stage.width( elW );
+        };
+    }
+
     var gallery_more = $(".gallery_more");
     gallery_more.addClass("owl-carousel");
+    $('.hide_information').click();
     gallery_more.owlCarousel({
         items:3,
         margin:30,
         dots:false,
         nav: true,
         loop: false,
-        merge: 1,
+        //merge: 1,
         thumbs:false,
         navText: ["<i class='material-icons'>keyboard_arrow_left</i>", "<i class='material-icons'>keyboard_arrow_right</i>"],
         mouseDrag: false,
+        autoWidth: true,
         responsive:{
             0:{
                 items:1
@@ -133,8 +150,11 @@ $(document).ready(function(){
             1000:{
                 items:3
             }
-        }
+        },
+        onInitialized: fixOwl,
+        onRefreshed: fixOwl
     });
+    $('.hide_information').click();
 
     //E-mail Ajax Send
     $(".form").submit(function() { //Change
@@ -255,6 +275,109 @@ var scroll = jQuery(this).attr('href');
 			
 		})
 	},2000);	
+
+
+
+// разбор get-параметров url-а
+function getAllUrlParams(url) {
+  // извлекаем строку из URL или объекта window
+  var queryString = url ? url.split('?')[1] : window.location.search.slice(1);
+
+  // объект для хранения параметров
+  var obj = {};
+
+  // если есть строка запроса
+  if (queryString) {
+
+    // данные после знака # будут опущены
+    queryString = queryString.split('#')[0];
+
+    // разделяем параметры
+    var arr = queryString.split('&');
+
+    for (var i=0; i<arr.length; i++) {
+      // разделяем параметр на ключ => значение
+      var a = arr[i].split('=');
+
+      // обработка данных вида: list[]=thing1&list[]=thing2
+      var paramNum = undefined;
+      var paramName = a[0].replace(/\[\d*\]/, function(v) {
+        paramNum = v.slice(1,-1);
+        return '';
+      });
+
+      // передача значения параметра ('true' если значение не задано)
+      var paramValue = typeof(a[1])==='undefined' ? true : a[1];
+
+      // преобразование регистра
+      paramName = paramName.toLowerCase();
+      paramValue = paramValue.toLowerCase();
+
+      // если ключ параметра уже задан
+      if (obj[paramName]) {
+        // преобразуем текущее значение в массив
+        if (typeof obj[paramName] === 'string') {
+          obj[paramName] = [obj[paramName]];
+        }
+        // если не задан индекс...
+        if (typeof paramNum === 'undefined') {
+          // помещаем значение в конец массива
+          obj[paramName].push(paramValue);
+        }
+        // если индекс задан...
+        else {
+          // размещаем элемент по заданному индексу
+          obj[paramName][paramNum] = paramValue;
+        }
+      }
+      // если параметр не задан, делаем это вручную
+      else {
+        obj[paramName] = paramValue;
+      }
+    }
+  }
+
+  return obj;
+}
+
+    // фильтр в категории
+    $('.js-filter-price').on('click', function(){
+        var url = window.location.href.slice(0,window.location.href.indexOf('\?'));
+        if ( url.charAt(url.length -1) != '/' ) {
+            url += '/';
+        }
+        if ( getAllUrlParams().location == null ) {
+            url += '?';
+        } else {
+            url += '?' + 'location=' + getAllUrlParams().location + '&';
+        }
+
+        // если фильтр еще не активен - активируем его
+        if ( $(this).hasClass('no-active') ) {
+            $(this).removeClass('no-active').addClass('active');
+        }
+        // меняем направление сортировки
+        if ( $(this).hasClass('desc') ) {
+            $(this).removeClass('desc').addClass('acs');
+            window.location.href = url + 'price=Дорогие';
+        } else {
+            $(this).removeClass('asc').addClass('desc');
+            window.location.href = url + 'price=Дешевые';
+        }
+    });
+
+
+    $('.filter .f-select').on('click', function(){
+        if ( $('.filter .f-select .list:visible').length > 0 && $(this).find('.list:visible').length == 0 ) {
+            $('.filter .f-select .list').hide();
+        }
+        $(this).find('.list').toggle();
+    });
+    $(document).mouseup(function (e){
+        if ( $(e.target).closest('.filter .f-select').length === 0 ) {
+            $('.filter .f-select').find('.list').hide();
+        }
+    });
 
 });
 

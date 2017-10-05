@@ -82,9 +82,16 @@ class Orders
 		
 		return $id;
 		
-   }
+	}
    
-   public function getOrders(){
+	public function dellOrder($order_id){
+	
+		$sql = 'DELETE FROM '.$this->pref.'orders WHERE `orders_id`="'.$order_id.'"';
+		$this->db->query($sql) or die('class Orders <br>'.$sql);
+		
+	}
+	
+	public function getOrders(){
 	
 		$sql = 'SELECT * FROM '.$this->pref.'orders ORDER BY `date` DESC';
 		$r = $this->db->query($sql) or die('class Orders <br>'.$sql);

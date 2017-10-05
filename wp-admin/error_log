@@ -1,0 +1,76 @@
+[25-Jul-2017 20:58:00 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home2/ivolgaio/public_html/wp-admin/includes/template.php:2020) in /home2/ivolgaio/public_html/wp-admin/menu-header.php on line 254
+[25-Jul-2017 21:14:28 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home2/ivolgaio/public_html/wp-admin/includes/template.php:2020) in /home2/ivolgaio/public_html/wp-admin/menu-header.php on line 29
+[25-Jul-2017 21:16:43 UTC] PHP Parse error:  syntax error, unexpected '}', expecting ')' in /home2/ivolgaio/public_html/wp-admin/menu-header.php on line 37
+[25-Jul-2017 21:16:59 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home2/ivolgaio/public_html/wp-admin/includes/template.php:2020) in /home2/ivolgaio/public_html/wp-admin/menu-header.php on line 39
+[25-Jul-2017 16:30:38 America/Chicago] PHP Parse error:  syntax error, unexpected end of file in /home2/ivolgaio/public_html/wp-admin/edit-orders.php on line 43
+[25-Jul-2017 21:33:40 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare_items() on null in /home2/ivolgaio/public_html/wp-admin/edit-orders.php:13
+Stack trace:
+#0 {main}
+  thrown in /home2/ivolgaio/public_html/wp-admin/edit-orders.php on line 13
+[25-Jul-2017 21:33:40 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare_items() on null in /home2/ivolgaio/public_html/wp-admin/edit-orders.php:13
+Stack trace:
+#0 {main}
+  thrown in /home2/ivolgaio/public_html/wp-admin/edit-orders.php on line 13
+[25-Jul-2017 21:33:43 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare_items() on null in /home2/ivolgaio/public_html/wp-admin/edit-orders.php:13
+Stack trace:
+#0 {main}
+  thrown in /home2/ivolgaio/public_html/wp-admin/edit-orders.php on line 13
+[25-Jul-2017 21:34:49 UTC] PHP Fatal error:  Uncaught Error: Call to a member function views() on null in /home2/ivolgaio/public_html/wp-admin/edit-orders.php:122
+Stack trace:
+#0 {main}
+  thrown in /home2/ivolgaio/public_html/wp-admin/edit-orders.php on line 122
+[25-Jul-2017 21:35:35 UTC] PHP Fatal error:  Uncaught Error: Call to a member function views() on null in /home2/ivolgaio/public_html/wp-admin/edit-orders.php:97
+Stack trace:
+#0 {main}
+  thrown in /home2/ivolgaio/public_html/wp-admin/edit-orders.php on line 97
+[25-Jul-2017 21:36:08 UTC] PHP Fatal error:  Uncaught Error: Call to a member function views() on null in /home2/ivolgaio/public_html/wp-admin/edit-orders.php:84
+Stack trace:
+#0 {main}
+  thrown in /home2/ivolgaio/public_html/wp-admin/edit-orders.php on line 84
+[25-Jul-2017 21:37:04 UTC] PHP Fatal error:  Uncaught Error: Call to a member function get_pagination_arg() on null in /home2/ivolgaio/public_html/wp-admin/edit-orders.php:31
+Stack trace:
+#0 {main}
+  thrown in /home2/ivolgaio/public_html/wp-admin/edit-orders.php on line 31
+[25-Jul-2017 21:38:17 UTC] PHP Fatal error:  Uncaught Error: Call to a member function get_pagination_arg() on null in /home2/ivolgaio/public_html/wp-admin/edit-orders.php:35
+Stack trace:
+#0 {main}
+  thrown in /home2/ivolgaio/public_html/wp-admin/edit-orders.php on line 35
+[25-Jul-2017 21:42:21 UTC] PHP Fatal error:  Uncaught Error: Call to a member function get_pagination_arg() on null in /home2/ivolgaio/public_html/wp-admin/edit-orders.php:43
+Stack trace:
+#0 {main}
+  thrown in /home2/ivolgaio/public_html/wp-admin/edit-orders.php on line 43
+[25-Jul-2017 22:00:30 UTC] PHP Fatal error:  Uncaught Error: Call to a member function get_pagination_arg() on null in /home2/ivolgaio/public_html/wp-admin/edit-orders.php:108
+Stack trace:
+#0 {main}
+  thrown in /home2/ivolgaio/public_html/wp-admin/edit-orders.php on line 108
+[25-Jul-2017 22:00:43 UTC] PHP Fatal error:  Uncaught Error: Call to a member function get_pagination_arg() on null in /home2/ivolgaio/public_html/wp-admin/edit-orders.php:106
+Stack trace:
+#0 {main}
+  thrown in /home2/ivolgaio/public_html/wp-admin/edit-orders.php on line 106
+[25-Jul-2017 22:01:18 UTC] PHP Fatal error:  Uncaught Error: Call to a member function get_pagination_arg() on null in /home2/ivolgaio/public_html/wp-admin/edit-orders.php:105
+Stack trace:
+#0 {main}
+  thrown in /home2/ivolgaio/public_html/wp-admin/edit-orders.php on line 105
+[25-Jul-2017 22:02:30 UTC] PHP Fatal error:  Uncaught Error: Call to a member function get_pagination_arg() on null in /home2/ivolgaio/public_html/wp-admin/edit-orders.php:105
+Stack trace:
+#0 {main}
+  thrown in /home2/ivolgaio/public_html/wp-admin/edit-orders.php on line 105
+[25-Jul-2017 22:05:18 UTC] PHP Fatal error:  Uncaught Error: Call to a member function get_pagination_arg() on null in /home2/ivolgaio/public_html/wp-admin/edit-orders.php:105
+Stack trace:
+#0 {main}
+  thrown in /home2/ivolgaio/public_html/wp-admin/edit-orders.php on line 105
+[25-Jul-2017 22:05:43 UTC] PHP Fatal error:  Uncaught Error: Call to a member function get_pagination_arg() on null in /home2/ivolgaio/public_html/wp-admin/edit-orders.php:105
+Stack trace:
+#0 {main}
+  thrown in /home2/ivolgaio/public_html/wp-admin/edit-orders.php on line 105
+[25-Jul-2017 22:06:42 UTC] PHP Fatal error:  Uncaught Error: Call to a member function get_pagination_arg() on null in /home2/ivolgaio/public_html/wp-admin/edit-orders.php:104
+Stack trace:
+#0 {main}
+  thrown in /home2/ivolgaio/public_html/wp-admin/edit-orders.php on line 104
+[26-Jul-2017 16:16:59 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home2/ivolgaio/public_html/wp-admin/edit-orders.php:5) in /home2/ivolgaio/public_html/wp-content/mu-plugins/endurance-page-cache.php on line 535
+[26-Jul-2017 16:17:06 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home2/ivolgaio/public_html/wp-admin/edit-orders.php:5) in /home2/ivolgaio/public_html/wp-content/mu-plugins/endurance-page-cache.php on line 535
+[26-Jul-2017 16:17:19 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home2/ivolgaio/public_html/wp-admin/edit-orders.php:5) in /home2/ivolgaio/public_html/wp-content/mu-plugins/endurance-page-cache.php on line 535
+[26-Jul-2017 16:17:24 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home2/ivolgaio/public_html/wp-admin/edit-orders.php:5) in /home2/ivolgaio/public_html/wp-content/mu-plugins/endurance-page-cache.php on line 535
+[26-Jul-2017 16:17:40 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home2/ivolgaio/public_html/wp-admin/edit-orders.php:5) in /home2/ivolgaio/public_html/wp-content/mu-plugins/endurance-page-cache.php on line 535
+[07-Aug-2017 04:32:22 UTC] PHP Warning:  implode(): Invalid arguments passed in /home2/ivolgaio/public_html/wp-content/mu-plugins/endurance-page-cache.php on line 462
+[07-Aug-2017 04:32:22 UTC] PHP Warning:  implode(): Invalid arguments passed in /home2/ivolgaio/public_html/wp-content/mu-plugins/endurance-page-cache.php on line 462

@@ -6,6 +6,7 @@
             <div class="container">
                 <div class="row row_flex">
 
+<?php //query_posts('order=ASC' ); ?>
 <?php if ( have_posts() ) while ( have_posts() ) : the_post(); // старт цикла ?>
 
 <?php 
@@ -173,7 +174,7 @@ $(document).ready(function(){
 			padding: 25px;
 			border: 3px solid #ff8a00;
 			/*margin-top: -28px;*/
-			display: block;
+			display: none;
 			 
 		}
 		/*
@@ -192,8 +193,8 @@ $(document).ready(function(){
 			width: 150px;
 			height: 0;
 			background: red;
-			position: fixed;
-			margin-left: 75px;
+			position: absolute;
+			margin-left: 90px;
 		}
 		#key_more_info:before {
 			content: "";
@@ -220,8 +221,8 @@ $(document).ready(function(){
 	</style>
 	<script>
 		$(document).on('mouseenter', '#key_more_info', function(){
-			if ($(window).width() > '995'){
-				//$('#more_info').show(500);
+			if ($(window).width() > '768'){
+				$('#more_info').show(0);
 				$('#more_info').animate(
 										{
 											height:"362px",
@@ -231,6 +232,7 @@ $(document).ready(function(){
 			}
 		});
 		$(document).on('mouseleave', '#more_info', function(){
+			setTimeout(function(){$('#more_info').hide(0);},500);
 			$('#more_info').animate(
 										{
 											height:"170px",
@@ -425,8 +427,13 @@ $(document).ready(function(){
 
 <?php $images = get_field('gallery_top'); if( $images ): ?>
     <div class="owl-carousel tour_gallery_slider">
-        <?php foreach( $images as $image ): ?>
-					  <img ypeof="foaf:Image"  src="<?php echo $image['sizes']['big-thumb']; ?>" alt="<?php echo $image['alt']; ?>">
+        <?php
+		//echo '<pre>'; print_r(var_dump( $images  ));
+		//die();
+		?>
+		<?php foreach( $images as $image ): ?>
+					  <!--img ypeof="foaf:Image"  src="<?php echo $image['sizes']['big-thumb']; ?>" alt="<?php echo $image['alt']; ?>"-->
+					  <img ypeof="foaf:Image"  src="<?php echo $image['sizes']['large']; ?>" alt="<?php echo $image['alt']; ?>">
         <?php endforeach; ?>
     </div>
 <?php endif; ?>
@@ -546,7 +553,7 @@ $(document).ready(function(){
         <?php foreach( $images as $image ): ?>
             <div class="item_gallery">
                 <a href="<?php echo $image['url']; ?>" data-fancybox="group">
-                     <img src="<?php echo $image['sizes']['big-thumb']; ?>" class="img-responsive" alt="<?php echo $image['alt']; ?>" />
+                     <img src="<?php echo $image['sizes']['large']; ?>" class="img-responsive" alt="<?php echo $image['alt']; ?>" />
                 </a>
             </div>
         <?php endforeach; ?>
@@ -566,7 +573,7 @@ $(document).ready(function(){
 							<?php endif; ?>
 
 <?php if( get_field('deposit') || get_field('term_deposit') || get_field('full_payment') || get_field('cancel_reservation') || get_field('podrantok') || get_field('missing') || get_field('supplement_trophy') ): ?>
-                            <section class="margin_bottom info_block">
+                            <section class="margin_bottom info_block pay_info">
                                 <div class="row_title">Условия оплаты</div>
                                 <?php if( get_field('deposit') ): ?>
 								<div class="row row_list">
@@ -794,4 +801,12 @@ $txt_reviews = get_sub_field('txt_reviews');
         </main>
 <a href=".fixed_block" class="tour_bron_form">Забронировать</a>
 
+<script>
+	$(document).ready(function(){
+			$('#select_hunters').trigger('change');
+	});
+</script>
+
 <?php get_footer(); // подключаем footer.php ?>
+
+
