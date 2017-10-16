@@ -100,14 +100,20 @@ class acf_field_page_link extends acf_field {
 			
 			// strip slashes (search may be integer)
 			$s = wp_unslash( strval($options['s']) );
-			
+
+			if (strpos($s, 'http:') !== false)
+			{
+				$tmp = explode('/', trim($s, '/'));
+				$cnt = count($tmp);
+				$s = $tmp[$cnt-1];
+			}
 			
 			// update vars
 			$args['s'] = $s;
 			$is_search = true;
 			
 		}
-		
+
 		
 		// load field
 		$field = acf_get_field( $options['field_key'] );
@@ -198,7 +204,7 @@ class acf_field_page_link extends acf_field {
 		
 		// get posts grouped by post type
 		$groups = acf_get_grouped_posts( $args );
-		
+
 		
 		// loop
 		if( !empty($groups) ) {

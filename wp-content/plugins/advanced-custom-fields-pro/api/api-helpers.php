@@ -1857,10 +1857,11 @@ function acf_get_post_title( $post = 0, $is_search = false ) {
 		}
 		
 	}
-	
+
+    $link = get_permalink( $post->ID );
 	
 	// merge
-	$title = $prepend . $title . $append;
+	$title = $prepend . $title . ' - ' . $link . $append;
 	
 	
 	// return
