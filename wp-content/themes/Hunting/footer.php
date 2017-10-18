@@ -50,5 +50,25 @@
     <script src="<?php echo get_template_directory_uri();?>/js/jquery.sticky-kit.min.js"></script>
     <?php wp_footer(); // необходимо для работы плагинов и функционала  ?>
     <script src="<?php echo get_template_directory_uri();?>/js/common.js"></script>
+<!-- Start of HubSpot Embed Code -->
+  <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/2525948.js"></script>
+<!-- End of HubSpot Embed Code -->
 </body>
 </html>
+
+
+<?php if(strpos($_SERVER['REQUEST_URI'], 'about') !== false OR
+		 strpos($_SERVER['REQUEST_URI'], 'contact') !== false OR
+		 strpos($_SERVER['REQUEST_URI'], 'how-it-works') !== false 
+		 ){ ?>
+<style>
+	
+	@media(max-width:500px){
+		.flogotype{
+			display: none;
+		}
+		
+	}
+</style>
+
+<?php } ?>

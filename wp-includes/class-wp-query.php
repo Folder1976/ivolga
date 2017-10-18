@@ -1351,7 +1351,7 @@ class WP_Query {
 			}
 
 			$like = $n . $wpdb->esc_like( $term ) . $n;
-			$search .= $wpdb->prepare( "{$searchand}(({$wpdb->posts}.post_title $like_op %s) $andor_op ({$wpdb->posts}.post_excerpt $like_op %s) $andor_op ({$wpdb->posts}.post_content $like_op %s))", $like, $like, $like );
+			$search .= $wpdb->prepare( "{$searchand}(({$wpdb->posts}.post_title $like_op %s) $andor_op ({$wpdb->posts}.post_excerpt $like_op %s) $andor_op ({$wpdb->posts}.post_content $like_op %s) $andor_op ({$wpdb->posts}.post_name $like_op %s))", $like, $like, $like, $like );
 			$searchand = ' AND ';
 		}
 
@@ -1949,7 +1949,7 @@ class WP_Query {
 		} elseif ( '' != $q['attachment'] ) {
 			$q['attachment'] = sanitize_title_for_query( wp_basename( $q['attachment'] ) );
 			$q['name'] = $q['attachment'];
-			$where .= " AND {$wpdb->posts}.post_name = '" . $q['attachment'] . "'";
+			//$where .= " AND {$wpdb->posts}.post_name = '" . $q['attachment'] . "'";
 		} elseif ( is_array( $q['post_name__in'] ) && ! empty( $q['post_name__in'] ) ) {
 			$q['post_name__in'] = array_map( 'sanitize_title_for_query', $q['post_name__in'] );
 			$post_name__in = "'" . implode( "','", $q['post_name__in'] ) . "'";
@@ -2831,7 +2831,11 @@ class WP_Query {
 			if ( $split_the_query ) {
 				// First get the IDs and then fill in the objects
 
-				$this->request = "SELECT $found_rows $distinct {$wpdb->posts}.ID FROM {$wpdb->posts} $join WHERE 1=1 $where $groupby $orderby $limits";
+                //.....
+                //$where
+                //echo $where;
+
+                $this->request = "SELECT $found_rows $distinct {$wpdb->posts}.ID FROM {$wpdb->posts} $join WHERE 1=1 $where $groupby $orderby $limits";
 
 				/**
 				 * Filters the Post IDs SQL request before sending.

@@ -501,8 +501,8 @@ a.hide_information:hover i {color: #fff;}
 .modal_form .form_item input[type="number"] {width: 100%; background: #fff; border: 1px solid #d8d8d8; outline: none;height: 55px; padding: 0 15px;}
 .modal_form .modal_form_bottom {border-top: 1px solid #ff8a00; margin: 24px -24px -24px -24px;padding: 24px;}
 
-.modal_form .checkbox_form input {vertical-align: top;width: 28px;height: 25px;margin: 4px 0 0 0;position: absolute;opacity: 0; pointer-events: none;}
-.modal_form .checkbox_form label {color: #b5b5b5;font-size: 16px;line-height: 20px;display: block}
+.modal_form .checkbox_form input {vertical-align: top;width: 28px;height: 25px;margin: 4px 0 0 0;position: absolute;opacity: 1; pointer-events: none;}
+.modal_form .checkbox_form label {color: #b5b5b5;font-size: 16px;line-height: 20px;display: block; margin-left: 40px;}
 .modal_form .checkbox_form label a {color: #111;text-decoration: underline;}
 .modal_form .checkbox_form input + label {cursor: pointer;}
 

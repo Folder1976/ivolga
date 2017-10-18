@@ -35,13 +35,16 @@ $(document).ready(function(){
 
 	function valParam () {
 		
-		//debugger;
 		
 		//var start = "0";
 		//var end = "0";
 		var kol_day = 1;
 		var start = $('#tour_start').datepicker('getDate');
 		var end   = $('#tour_finish').datepicker('getDate');
+		
+		if(start == null || end == null){
+			return false;
+		}
 		
 		if (start > 0 ) {
 			if (start<end) {
@@ -153,7 +156,45 @@ $(document).ready(function(){
 		}
 	};
 	
-	$('.price_block, .price_block input, .price_block select, .ui-datepicker, a.finish').on('click keyup change', valParam);
+	$('.price_block, .price_block input, .price_block select, .ui-datepicker').on('click keyup change', valParam);
+	
+	$(' a.finish').on('click keyup change', function(){
+		
+		var baz = true;
+		
+		
+		
+		$('#tour_start_err').hide();
+		$('#tour_finish_err').hide();
+		
+		var start = $('#tour_start').datepicker('getDate');
+		var end   = $('#tour_finish').datepicker('getDate');
+		
+		var valid = 1;
+		
+		if(start == null){
+			$('#tour_start_err').show();
+			valid = 0;
+		}
+		if(end == null){
+			$('#tour_finish_err').show();
+			valid = 0;
+		}
+		
+		if(valid == 1){
+			valParam();
+			
+			if($('.finish').data('fancybox')){
+				
+			}else{
+				$('.finish').data('fancybox', baz).attr('data-fancybox', baz);
+				//$('.finish').trigger('click');
+			}
+		}else{
+			setTimeout(hide_all_err, 3000);
+		}
+		
+	});
 	
 	});
 </script>
@@ -162,6 +203,15 @@ $(document).ready(function(){
 
 <div class="col-md-4 col-md-push-8 fixed_block">
 	<style>
+		.shirma{
+			width: 100%;
+			height: 65px;
+			background-color: gray;
+			position: absolute;
+			z-index: 9;
+			cursor: pointer;
+			opacity: 0;
+		}
 		#more_info{
 			position: absolute;
 			width: 358px;
@@ -246,6 +296,20 @@ $(document).ready(function(){
 			//$('div#more_info').css('height', $('div.price_block').outerHeight()+'px');
 		});
 	</script>
+	<style>
+		.data_err{
+			position: absolute;
+			margin-top: -80px;
+			margin-left: 10px;
+			background-color: #E5E377;
+			padding: 8px 10px;
+			border: 2px solid red;
+			border-radius: 15px;
+			display: none;
+			opacity: 0.8;
+			z-index: 99;
+		}
+	</style>
 						
                         <div class="price_block" style="z-index:10;">
 <?php if( get_field('page_tour_reg') ): ?>
@@ -262,6 +326,8 @@ $(document).ready(function(){
                                           <input id="tour_start" type="text" placeholder="дд/мм/гггг" class="datepicker">
 												 <!-- value="<?php echo date('d/m/Y', strtotime($start_date->format('m/j/Y'))); ?>" -->
                                             </div>
+											
+											<div id="tour_start_err" class="data_err">Укажите дату</div>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
@@ -272,6 +338,7 @@ $(document).ready(function(){
                                           <input id="tour_finish" type="text"  placeholder="дд/мм/гггг" class="datepicker">
 												 <!-- value="<?php echo date('d/m/Y', strtotime($finish_date->format('m/j/Y'))); ?>" -->
                                             </div>
+											<div id="tour_finish_err" class="data_err">Укажите дату</div>
                                         </div>
                                     </div>
                                 </div>
@@ -362,28 +429,99 @@ $(document).ready(function(){
 
                                 <div class="price_finish" style="">
                                     <div class="summa">Итого: <span class="cur"><?php the_field('start_price_tour'); ?> руб.</span></div>
-                                    <a href="#modal_form_price" class="finish" data-fancybox>Рассчитать тур</a>
+                                    <a href="#modal_form_price" class="finish"  >Рассчитать тур</a>
                                     <div class="no_money_block">вы пока ни за что не платите</div>
                                 </div>
                                 <div class="hide">
+									
+									<script>
+										function hide_all_err(){
+											$('.soglashenir').hide(500);
+											$('.name_form').hide(500);
+											$('.email_form').hide(500);
+											$('.phone_form').hide(500);
+											$('.data_err').hide(500);
+										}
+										
+										$(document).on('click','.shirma', function(){
+											
+											var valid = 1;
+											$('.soglashenir').hide();
+											$('.name_form').hide();
+											$('.email_form').hide();
+											$('.phone_form').hide();
+											
+											if($('#name_form').val() == ''){
+												$('.name_form').show();
+												valid = 0;
+											}
+											
+											if($('#email_form').val() == ''){
+												$('.email_form').show();
+												valid = 0;
+											}
+											
+											if($('#phone_form').val() == ''){
+												$('.phone_form').show();
+												valid = 0;
+											}
+											
+											console.log($('#agreement').prop('checked'));
+											
+											if($('#agreement').prop('checked') == false){
+												$('.agreement').show();
+												valid = 0;
+											}
+											
+											if(valid == 1){
+												//debugger;
+												
+												$(".shirma").hide();
+												$('.submit').trigger('click');
+											}else{
+												
+												setTimeout(hide_all_err, 3000);
+											}
+											
+										});
+										
+									</script>
+									<style>
+										.valid_msg{
+											position: absolute;
+											margin-top: -80px;
+											margin-left: 120px;
+											background-color: #E5E377;
+											padding: 8px 15px;
+											border: 2px solid red;
+											border-radius: 15px;
+											display: none;
+											opacity: 0.8;
+											z-index: 99;
+										}
+									</style>
                                     <div id="modal_form_price" class="modal_form">
 <form action="<?php the_field('page_tour_reg'); ?>" method="post" class="block_form_name">
                                         <div class="modal_title">Заполните ваши контактные данные</div>
                                         <div class="form_item">
                                             <label for="">Ваше имя</label>
-											<input type="text" oninvalid="setCustomValidity('Вы не представились');" name="name_form" placeholder="Руслан Русланов"  required>
+											<input type="text"  name="name_form"  id="name_form" placeholder="Руслан Русланов"  >
+											<div class="valid_msg name_form">Вы не представились</div>
                                         </div>
                                         <div class="form_item">
                                             <label for="">Ваш email</label>
-										    <input type="text" oninvalid="setCustomValidity('Введите ваш email');" name="email_form" placeholder="ruslan@sitename.ru"  required>
+										    <input type="text" data-oninvalid="Введите ваш email" name="email_form" id="email_form" placeholder="ruslan@sitename.ru"  >
+											<div class="valid_msg email_form">Введите ваш email</div>
                                         </div>
                                         <div class="form_item">
                                             <label for="">Ваш телефон</label>
-										    <input type="text" oninvalid="setCustomValidity('Укажите номер для контакта');" name="phone_form" placeholder="+7 (904) 444-22-11" required>
+										    <input type="text" data-oninvalid="Укажите номер для контакта" name="phone_form" id="phone_form" placeholder="+7 (904) 444-22-11" >
+											<div class="valid_msg phone_form">Укажите номер для контакта</div>
                                         </div>
                                         <div class="modal_form_bottom">
                                             <div class="checkbox_form">
-												<input id="agreement" oninvalid="setCustomValidity('Вы должны согласиться с пользовательским соглашением');" name="Согласен" checked type="checkbox" required>
+												<input id="agreement" name="Согласен" checked type="checkbox" >
+												<div class="valid_msg agreement">Вы должны согласиться с пользовательским соглашением</div>
 												<label for="agreement">Я принимаю условия <a href="/terms/">пользовательского соглашения</a></label>
 											</div>
                                             <div class="more_form">
@@ -406,8 +544,8 @@ $(document).ready(function(){
 	<?php if( get_field('deposit') || get_field('term_deposit') || get_field('full_payment') || get_field('cancel_reservation') || get_field('podrantok') || get_field('missing') || get_field('supplement_trophy') ): ?>
 		<input type="hidden" name="tour_yslov_money" value="<p><?php if( get_field('deposit') ): ?><span>Депозит</span>: <?php the_field('deposit'); ?><br><?php endif; ?><?php if( get_field('term_deposit') ): ?><span>Срок внесения депозита</span>: <?php the_field('term_deposit'); ?><br><?php endif; ?><?php if( get_field('full_payment') ): ?><span>Полная оплата</span> : <?php the_field('full_payment'); ?><br><?php endif; ?><?php if( get_field('cancel_reservation') ): ?><span>Отмена бронирования</span> : <?php the_field('cancel_reservation'); ?><br><?php endif; ?><?php if( get_field('podrantok') ): ?><span>Подранок</span>: <?php the_field('podrantok'); ?><br><?php endif; ?><?php if( get_field('missing') ): ?><span>Промах</span>: <?php the_field('missing'); ?><br><?php endif; ?><?php if( get_field('supplement_trophy') ): ?><span>Доплата за трофей</span>: <?php the_field('supplement_trophy'); ?><?php endif; ?></p>">
 	<?php endif; ?>
-
-												<input type="submit" name="submit" value="Далее">
+												<div class="shirma"></div>
+												<input type="submit" name="submit" class="submit" value="Далее">
 											</div>
                                             <div class="no_money">Вы пока ни за что не платите</div>
                                         </div>
@@ -461,7 +599,7 @@ $(document).ready(function(){
                                 </div>
 								<?php endif; ?>
 
-                                <?php if( get_field('food_checkbox') ): ?>
+                                <?php if( get_field('food_checkbox') && get_field('food_checkbox', false, false) != 5): ?>
 								<div class="item">
                                     <div class="icon"><img src="<?php echo get_template_directory_uri();?>/img/icon/restaurant-cutlery.svg" alt=""></div>
                                     <?php the_field('food_checkbox'); ?>
